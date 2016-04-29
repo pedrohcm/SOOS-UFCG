@@ -1,8 +1,10 @@
 package projetoRPI;
 
+import factories.UsuarioFactory;
+
 public class Controller {
 	
-	final String CHAVEPRINCIPAL = "c041ebf8";
+	final String CHAVE_PRINCIPAL = "c041ebf8";
 	UsuarioFactory factory = new UsuarioFactory();
 	
 	public String liberaSistema(String chave){

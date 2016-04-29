@@ -1,0 +1,5 @@
+package projetoRPI;
+
+public enum TiposMedicamento {
+	ANALGESICO, ANTIBIOTICOS, ANTIEMETICO, ANTI_INFLAMATORIO, ANTITERMICO, HORMONAIS;
+}

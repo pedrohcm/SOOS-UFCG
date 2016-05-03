@@ -9,7 +9,7 @@ import factories.MedicamentoFactory;
 public class Farmacia {
 
 	private MedicamentoFactory factory;
-	private LinkedList<Medicamento> colecaoMedicamentos;
+	private LinkedList<Medicamento> medicamentos;
 
 	public Farmacia() {
 		factory = new MedicamentoFactory();
@@ -17,7 +17,7 @@ public class Farmacia {
 
 	public boolean cadastraMedicamento(String nome, String tipo, double preco, int quantidade, String categoria) {
 		Medicamento novo = factory.criaMedicamento(nome, tipo, preco, quantidade, categoria);
-		colecaoMedicamentos.add(novo);
+		medicamentos.add(novo);
 		return true;
 	}
 	
@@ -58,7 +58,7 @@ public class Farmacia {
 	}
 	
 	private Medicamento getMedicamento(String nomeRemedio) { //verifica se o remedio esta cadastrado
-		for (Medicamento remedio : colecaoMedicamentos) {
+		for (Medicamento remedio : medicamentos) {
 			if (remedio.getNome().equals(nomeRemedio)) {
 				return remedio;
 			}
@@ -69,7 +69,7 @@ public class Farmacia {
 	public String consultaMedCategoria(String categoria) {
 		String listaMedicamentos = "";
 		verificaCategoria(categoria);
-		for (Medicamento medicamento : colecaoMedicamentos) {
+		for (Medicamento medicamento : medicamentos) {
 			if (medicamento.contemCategoria(categoria)) {
 				listaMedicamentos += medicamento.getNome() + ",";
 			}
@@ -93,13 +93,13 @@ public class Farmacia {
 	// organiza os medicamentos
 
 	public void sortedMedicamentos() {
-		Collections.sort(colecaoMedicamentos);
+		Collections.sort(medicamentos);
 	}
 
 	// organiza por ordem alfabetica
 
 	public void sortedOrdemAlfabetica() {
-		Collections.sort(colecaoMedicamentos, new Comparator<Medicamento>() {
+		Collections.sort(medicamentos, new Comparator<Medicamento>() {
 			@Override
 			public int compare(Medicamento o1, Medicamento o2) {
 				return o1.getNome().compareToIgnoreCase(o2.getNome());

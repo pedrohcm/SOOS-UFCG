@@ -1,76 +1,81 @@
 package factories;
-// Neto : Que coisa sebosa kkkkkkk
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import exceptions.DataInvalidaException;
 import projetoRPI.Diretor;
 import projetoRPI.Medico;
 import projetoRPI.Tecnico;
-import projetoRPI.Usuario;
+import projetoRPI.Funcionario;
 
 public class UsuarioFactory {
 
-	final String prefixoMedico = "1";
-	final String prefixoDiretor = "2";
+	
+	final String prefixoDiretor = "1";
+	final String prefixoMedico = "2";
 	final String prefixoTecnico = "3";
 
 	public UsuarioFactory() {
 
 	}
 
-	public Usuario criaUsuario(String nome, String cargo, String data){
+	public Funcionario criaUsuario(String nome, String cargo, String data) throws DataInvalidaException{
 		
 		String matricula = "";
 		String senha = "";
 		LocalDate dataFormatada = dataFormatChanges(data);
-		DateTimeFormatter formatter =  DateTimeFormatter.ofPattern("yyyy");
-		String ano = dataFormatada.format(formatter);
+		DateTimeFormatter formatador =  DateTimeFormatter.ofPattern("yyyy");
+		String ano = dataFormatada.format(formatador);
 		
 		LocalDate hoje = LocalDate.now();
-		String anoAtual = hoje.format(formatter);
+		String anoAtual = hoje.format(formatador);
 		
-		// acho que ta tendo codigo repetido (depois de colocar o prefixo), seria bom colocar um metodo
-		if(cargo.toUpperCase().equals("DIRETOR")){
-			matricula = prefixoDiretor + anoAtual + "001" ;// falta ajeitar aqui 
-			senha = ano + matricula.subSequence(0,5); // Fazer os testes para ver se ta ok mesmo a data
-			Usuario usuario = new Diretor(matricula,senha);
+
+		if(cargo.toUpperCase().equalsIgnoreCase("DIRETOR")){
+			matricula = prefixoDiretor + anoAtual + "001" ;
+			senha = ano + matricula.subSequence(0,4);
+			Funcionario usuario = new Diretor(nome, matricula, senha, data);
 			return usuario;
 		}
 		
-		if(cargo.toUpperCase().equals("MEDICO")){
-			matricula = prefixoMedico + anoAtual + "001" ;// falta ajeitar aqui 
-			senha = ano + matricula.subSequence(0,5);
-			Usuario usuario = new Medico(matricula,senha);
+		if(cargo.toUpperCase().equalsIgnoreCase("MEDICO")){
+			matricula = prefixoMedico + anoAtual + "001" ;
+			senha = ano + matricula.subSequence(0,4);
+			Funcionario usuario = new Medico(nome, matricula, senha, data);
 			return usuario;
 		}
 		
-		if(cargo.toUpperCase().equals("TECNICO")){
-			matricula = prefixoTecnico + anoAtual + "001" ;// falta ajeitar aqui 
-			senha = ano + matricula.subSequence(0,5);
-			Usuario usuario = new Tecnico(matricula,senha);
+		if(cargo.toUpperCase().equalsIgnoreCase("TECNICO")){
+			matricula = prefixoTecnico + anoAtual + "001" ;
+			senha = ano + matricula.subSequence(0,4);
+			Funcionario usuario = new Tecnico(nome, matricula, senha, data);
 			return usuario;
 		}
 		
 		// LANCAR EXCECAO AQUI
 		return null;
 	}
+	
 
-	public LocalDate dataFormatChanges(String data) { // Credito a Sueallany. Ela me deu essa implementação
+	public LocalDate dataFormatChanges(String data) throws DataInvalidaException { 
 
 		String[] newDate = data.split("/");
+		
+		LocalDate hoje = LocalDate.now();
+		int anoAtual = hoje.getYear();
 
 		int dia = Integer.parseInt(newDate[0]);
 		int mes = Integer.parseInt(newDate[1]);
 		int ano = Integer.parseInt(newDate[2]);
-
+		
+		if( (dia < 1 || dia > 31)  || (mes < 1 || mes > 12) || (ano > anoAtual) ){
+			throw new DataInvalidaException();
+			
+		}
 		LocalDate date;
 		date = LocalDate.of(ano, mes, dia);
-		// try{
-		// date = LocalDate.of(ano, mes, dia);
-		// } catch(DateTimeException e){
-		// throw new DadoInvalidoException("Data nao existe.");
-		// }
+		
 		return date;
 
 	}

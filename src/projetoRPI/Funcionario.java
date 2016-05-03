@@ -1,11 +1,14 @@
 package projetoRPI;
 
+
+
 public abstract class Funcionario {
 	
 	private String nome;
 	private String matricula;
 	private String dataNascimento;
 	private String senha;
+	private Util util;
 	
 	public Funcionario(String nome, String matricula, String senha, String dataNascimento){
 		
@@ -13,6 +16,7 @@ public abstract class Funcionario {
 		this.matricula = matricula;
 		this.senha = senha;
 		this.dataNascimento = dataNascimento;
+		util = new Util();
 	}
 
 	public String getNome() {
@@ -35,8 +39,9 @@ public abstract class Funcionario {
 		return matricula;
 	}
 
-	public String getDataNascimento() {
-		return dataNascimento;
+	public String getDataNascimento(){
+		return util.formataData(dataNascimento);
+		
 	}
 	
 	public abstract String getCargo();

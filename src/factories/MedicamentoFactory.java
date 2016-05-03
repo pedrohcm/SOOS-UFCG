@@ -1,7 +1,6 @@
 package factories;
 
 import projetoRPI.Medicamento;
-import projetoRPI.TiposMedicamento;
 
 public class MedicamentoFactory {
 
@@ -9,25 +8,25 @@ public class MedicamentoFactory {
 		
 	}
 	
-	public Medicamento criaMedicamento(String nome, double preco, int quantidade, TiposMedicamento categoria, String tipo) {
+	public Medicamento criaMedicamento(String nome, String tipo, double preco, int quantidade, String categorias) {
 		if(tipo.trim().equals("Generico")) {
-			return criaMedicamentoGenerico(nome, preco, quantidade, categoria);
+			return criaMedicamentoGenerico(nome, preco, quantidade, categorias);
 		}
 		if(tipo.trim().equals("Referencia")) {
-			return criaMedicamentoReferencia(nome, preco, quantidade, categoria);
+			return criaMedicamentoReferencia(nome, preco, quantidade, categorias);
 		}
 		return null;
 		// lancar excecao aqui (caso nao seja nenhum dos tipos)
 	}
 	
 	
-	private Medicamento criaMedicamentoGenerico(String nome, double preco, int quantidade, TiposMedicamento categoria) {
-		Medicamento novoGenerico = new Medicamento(nome, preco, quantidade, categoria);
+	private Medicamento criaMedicamentoGenerico(String nome, double preco, int quantidade, String categorias) {
+		Medicamento novoGenerico = new Medicamento(nome, preco, quantidade, categorias);
 		return novoGenerico;
 	}
 	
-	private Medicamento criaMedicamentoReferencia(String nome, double preco, int quantidade, TiposMedicamento categoria) {
-		Medicamento novoReferencia = new Medicamento(nome, preco, quantidade, categoria);
+	private Medicamento criaMedicamentoReferencia(String nome, double preco, int quantidade, String categorias) {
+		Medicamento novoReferencia = new Medicamento(nome, preco, quantidade, categorias);
 		return novoReferencia;
 	}
 }

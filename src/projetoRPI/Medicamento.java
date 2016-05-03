@@ -1,38 +1,50 @@
 package projetoRPI;
 
-import java.util.LinkedList;
-
 public class Medicamento implements Comparable<Medicamento> { //generico
 	private String nome;
 	private double preco;
 	private int quantidade;
-	private LinkedList <TiposMedicamento> categorias = new LinkedList <TiposMedicamento>();
+	private String listaCategorias;
 	
-	public Medicamento(String nome, double preco, int quantidade, TiposMedicamento categoria) {
+	public Medicamento(String nome, double preco, int quantidade, String categorias) {
 		// lembrar das excecoes aqui de valores invalidos		
 		this.nome = nome;
 		this.preco = preco;
 		this.quantidade = quantidade;
-		categorias.add(categoria);
-		// obs: como pode ter mais de uma categoria, criei um metodo que adiciona mais
-		// categorias ao medicamento, mas tambem da pra colocar pra receber uma colecao
-		// de categorias logo no construtor, mas nao sei se estaria certo...
+		associaCategoria(categorias);
 	}
 	
-	public boolean adicionaCategoria(TiposMedicamento novaCategoria) {
-		categorias.add(novaCategoria);
-		return true;
+	public boolean contemCategoria(String categoria) {
+		if(listaCategorias.contains(categoria)) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean associaCategoria(String tipos) {
+		String[] categoriasSeparadas = tipos.split(",");
+		boolean contem = false;
+		for(TiposMedicamento tipo: TiposMedicamento.values()) {
+			for(String categoria: categoriasSeparadas) {
+				if(tipo.toString().equalsIgnoreCase(categoria)) {
+					contem = true;
+					listaCategorias += tipo.toString().toLowerCase() + ",";
+				}
+			}
+		}
+		if(contem) {
+			return true;
+		}
+		return false;
+		//lancar excecao (categorias n existem) e tirar o return false
 	}
 	
 	public void adicionaQuantidade(int quantidade) {
 		this.quantidade += quantidade;
 	}
 	
-	public boolean contemCategoria(TiposMedicamento categoria) {
-		if(categorias.contains(categoria)) {
-			return true;
-		}
-		return false;
+	public String getTipo() {
+		return "Generico";
 	}
 	
 	public String getNome() {
@@ -43,22 +55,25 @@ public class Medicamento implements Comparable<Medicamento> { //generico
 		return preco;
 	}
 	
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+	
 	public int getQuantidade() {
 		return quantidade;
 	}
 	
-	private String listaCategorias() {
-		String lista = "";
-		for(TiposMedicamento tipo: categorias) {
-			lista += tipo.toString();
-			lista += " ";
-		}
-		return lista;
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+	
+	public String getCategorias() {
+		return listaCategorias.substring(0, listaCategorias.length()-1); //tira a ultima virgula
 	}
 	
 	@Override
 	public String toString() {
-		String texto = String.format("Nome: %s | Preco: %.2f | Quantidade: %i | Categorias: %s", nome, preco, quantidade, listaCategorias());
+		String texto = String.format("Medicamento Generico: %s - Preço: %.2f - Disponivel: %d - Categorias: %s", getNome(), getPreco(), getQuantidade(), getCategorias());
 		return texto;
 	}
 

@@ -30,6 +30,7 @@ public class UsuarioFactory {
 		LocalDate hoje = LocalDate.now();
 		String anoAtual = hoje.format(formatter);
 		
+		// acho que ta tendo codigo repetido (depois de colocar o prefixo), seria bom colocar um metodo
 		if(cargo.toUpperCase().equals("DIRETOR")){
 			matricula = prefixoDiretor + anoAtual + "001" ;// falta ajeitar aqui 
 			senha = ano + matricula.subSequence(0,5); // Fazer os testes para ver se ta ok mesmo a data
@@ -51,9 +52,7 @@ public class UsuarioFactory {
 			return usuario;
 		}
 		
-		// LANCAR EXCEÇAO AQUI
-		
-		
+		// LANCAR EXCECAO AQUI
 		return null;
 	}
 

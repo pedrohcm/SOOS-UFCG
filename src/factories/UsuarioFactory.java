@@ -16,10 +16,12 @@ public class UsuarioFactory {
 	final String prefixoDiretor = "1";
 	final String prefixoMedico = "2";
 	final String prefixoTecnico = "3";
+	private int quantCadastros;
 	private Util util;
 	
 	public UsuarioFactory() {
 		util = new Util();
+		quantCadastros = 1;
 	}
 
 	public Funcionario criaUsuario(String nome, String cargo, String data) throws DataInvalidaException{
@@ -35,23 +37,26 @@ public class UsuarioFactory {
 		
 
 		if(cargo.toUpperCase().equalsIgnoreCase("DIRETOR")){
-			matricula = prefixoDiretor + anoAtual + "001" ;
+			matricula = String.format("%s%s%03d", prefixoDiretor, anoAtual, quantCadastros);
 			senha = ano + matricula.subSequence(0,4);
 			Funcionario usuario = new Diretor(nome, matricula, senha, data);
+			quantCadastros += 1;
 			return usuario;
 		}
 		
 		if(cargo.toUpperCase().equalsIgnoreCase("MEDICO")){
-			matricula = prefixoMedico + anoAtual + "001" ;
+			matricula = String.format("%s%s%03d", prefixoMedico, anoAtual, quantCadastros);
 			senha = ano + matricula.subSequence(0,4);
 			Funcionario usuario = new Medico(nome, matricula, senha, data);
+			quantCadastros += 1;
 			return usuario;
 		}
 		
 		if(cargo.toUpperCase().equalsIgnoreCase("TECNICO ADMINISTRATIVO")){
-			matricula = prefixoTecnico + anoAtual + "001" ;
+			matricula = String.format("%s%s%03d", prefixoTecnico, anoAtual, quantCadastros);
 			senha = ano + matricula.subSequence(0,4);
 			Funcionario usuario = new Tecnico(nome, matricula, senha, data);
+			quantCadastros += 1;
 			return usuario;
 		}
 		

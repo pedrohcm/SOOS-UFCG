@@ -87,7 +87,7 @@ public class Controller {
 						"Nao eh possivel criar mais de um Diretor Geral.");
 			}
 			
-			util.verificaNome(nome);
+			util.verificaNomeFuncionario(nome);
 			util.verificaCargo(cargo);
 			
 			Funcionario funcionario = factoryUsuarios.criaUsuario(nome, cargo,
@@ -123,14 +123,10 @@ public class Controller {
 
 		case "nome":
 			return usuario.getNome();
-
 		case "cargo":
 			return usuario.getCargo();
-
 		case "data":
-
 			return usuario.getDataNascimento();
-
 		case "senha":
 			if (usuario.equals(logado)) {
 				return usuario.getSenha();

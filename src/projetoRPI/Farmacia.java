@@ -4,15 +4,21 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+import exceptions.AtributoInalteravelException;
+import exceptions.AtualizaMedicamentoException;
+import exceptions.DadoInvalidoException;
+import exceptions.ObjetoNaoExisteException;
 import factories.MedicamentoFactory;
 
 public class Farmacia {
 
 	private MedicamentoFactory factory;
 	private LinkedList<Medicamento> medicamentos;
+	private Util util;
 
 	public Farmacia() {
 		factory = new MedicamentoFactory();
+		util = new Util();
 	}
 
 	public boolean cadastraMedicamento(String nome, String tipo, double preco, int quantidade, String categoria) {
@@ -21,16 +27,27 @@ public class Farmacia {
 		return true;
 	}
 	
-	public void atualizaMedicamento(String nome, String atributo, String novoValor) {
-		//verificar se o valor eh valido (e lancar excecao se atributo for nome ou tipo)
-		
-		if(novoValor.equals("preco")) {
-			Double valorDouble = Double.parseDouble(novoValor);
-			getMedicamento(nome).setPreco(valorDouble);
-		}
-		if(atributo.equals("quantidade")) {
-			int valorInteiro = Integer.parseInt(novoValor);
-			getMedicamento(nome).setQuantidade(valorInteiro);
+	public void atualizaMedicamento(String nome, String atributo, String novoValor) throws ObjetoNaoExisteException, AtualizaMedicamentoException {
+		try {
+			switch(atributo) {
+			case "nome":
+				throw new AtributoInalteravelException("Nome do medicamento");
+			case "tipo":
+				throw new AtributoInalteravelException("Tipo do medicamento");
+			case "preco":
+				Double valorDouble = Double.parseDouble(novoValor);
+				getMedicamento(nome).setPreco(valorDouble);
+				break;
+			case "quantidade":
+				int valorInteiro = Integer.parseInt(novoValor);
+				util.verificaQuantidade(valorInteiro);
+				getMedicamento(nome).setQuantidade(valorInteiro);
+				break;
+			default:
+				throw new DadoInvalidoException("Atributo invalido");
+			}
+		} catch (AtributoInalteravelException | DadoInvalidoException e) {
+			throw new AtualizaMedicamentoException(e.getMessage());
 		}
 	}
 	
@@ -57,13 +74,13 @@ public class Farmacia {
 		}
 	}
 	
-	private Medicamento getMedicamento(String nomeRemedio) { //verifica se o remedio esta cadastrado
+	private Medicamento getMedicamento(String nomeRemedio) throws ObjetoNaoExisteException {
 		for (Medicamento remedio : medicamentos) {
 			if (remedio.getNome().equals(nomeRemedio)) {
 				return remedio;
 			}
 		}
-		return null; // lancar excecao aqui
+		throw new ObjetoNaoExisteException("Medicamento");
 	}
 
 	public String consultaMedCategoria(String categoria) {
@@ -87,7 +104,7 @@ public class Farmacia {
 		return true;
 	}
 
-	public String consultaMedNome(String nomeRemedio) {
+	public String consultaMedNome(String nomeRemedio) throws ObjetoNaoExisteException {
 		return getMedicamento(nomeRemedio).toString();
 	}
 	// organiza os medicamentos

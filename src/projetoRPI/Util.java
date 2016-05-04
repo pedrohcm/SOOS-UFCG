@@ -58,7 +58,21 @@ public class Util {
 		} 
 	}
 	
-	public void verificaNome(String nome) throws DadoInvalidoException{
+	public void verificaNomeRemedio(String nomeRemedio) throws DadoInvalidoException {
+		if(nomeRemedio == null){
+			throw new DadoInvalidoException("Nome do medicamento nao pode ser nulo.");
+		} else if (nomeRemedio.equals("")) {
+			throw new DadoInvalidoException("Nome do medicamento nao pode ser vazio.");
+		}
+	}
+	
+	public void verificaQuantidade(int quantidade) throws DadoInvalidoException {
+		if(quantidade < 0) {
+			throw new DadoInvalidoException("Quantidade do medicamento nao pode ser negativo.");
+		}
+	}
+	
+	public void verificaNomeFuncionario(String nome) throws DadoInvalidoException{
 		if(nome == null){
 			throw new DadoInvalidoException("Nome do funcionario nao pode ser nulo.");
 		}else if (nome.equals("")) {

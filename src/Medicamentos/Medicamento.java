@@ -7,21 +7,34 @@ public class Medicamento implements Comparable<Medicamento> {
 	private double preco;
 	private int quantidade;
 	private String listaCategorias;
-	
+	/**
+	 * Construtor de medicamento
+	 * @param nome associa ao nome
+	 * @param preco associa ao preco
+	 * @param quantidade associa a quantidade
+	 * @param categorias associa as categorias
+	 */
 	public Medicamento(String nome, double preco, int quantidade, String categorias) {
 		this.nome = nome;
 		this.preco = preco;
 		this.quantidade = quantidade;
 		associaCategoria(categorias);
 	}
-	
+	/**
+	 * Verifica se o medicamento contem a categoria
+	 * @param categoria a ser pesquisada
+	 * @return
+	 */
 	public boolean contemCategoria(String categoria) {
 		if(listaCategorias.contains(categoria)) {
 			return true;
 		}
 		return false;
 	}
-	
+	/**
+	 * Adiciona categorias
+	 * @param tipos associa aos tipos de categorias
+	 */
 	private void associaCategoria(String tipos) {
 		String[] categoriasSeparadas = tipos.split(",");
 		
@@ -34,7 +47,10 @@ public class Medicamento implements Comparable<Medicamento> {
 			}
 		}
 	}
-	
+	/**
+	 * Adiciona quantidade de medicamento
+	 * @param quantidade associa a quantidade
+	 */
 	public void adicionaQuantidade(int quantidade) {
 		this.quantidade += quantidade;
 	}

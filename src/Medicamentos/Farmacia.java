@@ -11,13 +11,24 @@ import Factory.MedicamentoFactory;
 public class Farmacia {
 	private LinkedList<Medicamento> listaMedicamentos;
 	private MedicamentoFactory factoryMedicamentos;
-	
+	/**
+	 * Construtor
+	 */
 	public Farmacia() {
 		listaMedicamentos = new LinkedList<Medicamento>();
 		factoryMedicamentos = new MedicamentoFactory();
 	}
 	
-
+	/**
+	 * Cadastra Medicamentos
+	 * @param nome associa ao nome
+	 * @param tipo associa ao tipo
+	 * @param preco associa ao preco
+	 * @param quantidade associa a quantidade
+	 * @param categorias associa as categorias
+	 * @return nome do medicamento
+	 * @throws MedicamentoException
+	 */
 	public String cadastrarMedicamento(String nome, String tipo, double preco, int quantidade, String categorias) throws MedicamentoException {
 		Medicamento remedio = factoryMedicamentos.criaMedicamento(nome, tipo, preco, quantidade, categorias);
 		listaMedicamentos.add(remedio);
@@ -43,7 +54,7 @@ public class Farmacia {
 	 * Recupera informacoes do Medicamentos
 	 * @param atributo associa ao atributo
 	 * @param nome associa ao nome 
-	 * @return a informação pedida
+	 * @return a informacao pedida
 	 * @throws ControllerException
 	 */
 	public String getInfoMedicamento(String atributo, String nome) throws ControllerException {
@@ -51,7 +62,7 @@ public class Farmacia {
 		atributo = atributo.toLowerCase();
 		switch (atributo) {
 			case "tipo":
-				return remedio.getTipo();
+				return remedio.getTipo(); // chamada polimorfica
 			case "preco":
 				String valor = String.format("%.1f", remedio.getPreco());
 				valor =  valor.replace(",", ".");
@@ -64,12 +75,22 @@ public class Farmacia {
 				return "Atributo Invalido.";
 		}
 	}
-	
+	/**
+	 * Atualiza preco do medicamento
+	 * @param nome associa ao nome do medicamento
+	 * @param novoPreco associa ao novo preco
+	 * @throws ControllerException
+	 */
 	public void atualizaPrecoMedicamento(String nome, double novoPreco) throws ControllerException {
 		Medicamento remedio = verificarMedicamento(nome);
 		remedio.setPreco(novoPreco);
 	}
-	
+	/**
+	 * atualiza a quantidade de medicamento
+	 * @param nome associa ao nome do medicamento
+	 * @param novaQuant associa a nova quantidade
+	 * @throws ControllerException
+	 */
 	public void atualizaQuantMedicamento(String nome, int novaQuant) throws ControllerException {
 		Medicamento remedio = verificarMedicamento(nome);
 		remedio.setQuantidade(novaQuant);
@@ -78,7 +99,7 @@ public class Farmacia {
 	/**
 	 * Consulta Medicamento pelo nome
 	 * @param nome associa ao nome
-	 * @return	informações do medicamento caso exista
+	 * @return	informacoes do medicamento caso exista
 	 * @throws ControllerException
 	 */
 	public String consultaMedNome(String nome) throws ControllerException {
@@ -89,18 +110,31 @@ public class Farmacia {
 		return remedio.toString();
 	}
 	
-	
+	/**
+	 * Adiciona medicamento no banco de dados
+	 * @param remedio associa ao medicamento
+	 * @throws MedicamentoException
+	 */
 	public void adicionaNoBancoDeDados(Medicamento remedio) throws MedicamentoException {
 		verificaMedicamento(remedio);
 		listaMedicamentos.add(remedio);
 	}
-	
+	/**
+	 * Verifica se o medicamento e nulo
+	 * @param remedio associa ao medicamento
+	 * @throws MedicamentoException
+	 */
 	private void verificaMedicamento(Medicamento remedio) throws MedicamentoException {
 		if(remedio == null) {
 			throw new MedicamentoException("Medicamento nulo");
 		}
 	}
 	
+	/**
+	 * Verifica se as categorias existem
+	 * @param tipos associa as categorias
+	 * @throws MedicamentoException
+	 */
 	private void verificaCategoria(String tipos) throws MedicamentoException {
 		String[] categoriasSeparadas = tipos.split(",");
 		boolean contem = false;
@@ -197,7 +231,7 @@ public class Farmacia {
 	
 
 	/**
-	 * Verifica se o Objeto Medicamento é um objeto válido
+	 * Verifica se o Objeto Medicamento e um objeto valido
 	 * @throws ControllerException
 	 * */
 	private Medicamento verificarMedicamento(String nome) throws ControllerException {

@@ -11,11 +11,23 @@ public class BancoFuncionarios {
 	private HashMap<String,Funcionario> listaFuncionarios;
 	private FuncionarioFactory factoryFuncionarios;
 	
+	/**
+	 * Construtor
+	 */
 	public BancoFuncionarios() {
 		listaFuncionarios = new HashMap<String,Funcionario>();
 		factoryFuncionarios = new FuncionarioFactory();
 	}
 	
+	/**
+	 * Cadastra Funcionarios
+	 * @param nome associa ao nome
+	 * @param cargo associa ao cargo
+	 * @param nascimento associa a data
+	 * @return a matricula do funcionario
+	 * @throws DataInvalidaException
+	 * @throws FuncionarioException
+	 */
 	public String cadastrarFuncionarios(String nome,String cargo,String nascimento) throws DataInvalidaException, FuncionarioException{
 		Funcionario funcionario = factoryFuncionarios.criaUsuario(nome, cargo, nascimento);
 		verificaFuncionario(funcionario);
@@ -27,7 +39,7 @@ public class BancoFuncionarios {
 	 * Recupera informacoes do usuario
 	 * @param matricula associa a matricula do funcionario
 	 * @param atributo associa ao atributo
-	 * @return a informação referente ao que foi pedido
+	 * @return a informacao referente ao que foi pedido
 	 * @throws ControllerException
 	 */
 	public String getInfoFuncionario(String matricula, String atributo) throws ControllerException{
@@ -46,7 +58,14 @@ public class BancoFuncionarios {
 				return "Atributo Invalido.";
 		}
 	 }
-	
+	/**
+	 * Cria primeira conta
+	 * @param nome associa ao nome
+	 * @param data associa a data de nascimento
+	 * @return matricula do funcionario
+	 * @throws DataInvalidaException
+	 * @throws FuncionarioException
+	 */
 	public String criarPrimeiraConta(String nome,String data) throws DataInvalidaException, FuncionarioException{
 		String cargo = "Diretor Geral";
 		Funcionario funcionario = factoryFuncionarios.criaUsuario(nome, cargo, data);
@@ -99,11 +118,21 @@ public class BancoFuncionarios {
 		return listaFuncionarios.get(matricula);
 	}
 	
+	/**
+	 * Exclui funcionario
+	 * @param matricula associa a matricula
+	 * @throws ControllerException
+	 */
 	public void excluiFuncionario(String matricula) throws ControllerException{
 		verificarUsuario(matricula);
 		listaFuncionarios.remove(matricula);
 	}
 	
+	/**
+	 * Verifica se funcionario e nulo
+	 * @param funcionario associa ao funcionario
+	 * @throws FuncionarioException
+	 */
 	private void verificaFuncionario(Funcionario funcionario) throws FuncionarioException{
 		if (funcionario == null){
 			throw new FuncionarioException("Funcionario nulo");
@@ -111,7 +140,7 @@ public class BancoFuncionarios {
 	}
 	
 	/**
-	 * Verifica se o Objeto funcionario é um objeto válido
+	 * Verifica se o Objeto funcionario e um objeto valido
 	 * @throws ControllerException
 	 * */
 	private Funcionario verificarUsuario(String matricula) throws ControllerException{

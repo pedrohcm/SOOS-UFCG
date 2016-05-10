@@ -7,21 +7,17 @@ package Sistema;
  */
 
 import Exceptions.ControllerException;
+
 import Exceptions.DataInvalidaException;
 import Exceptions.FuncionarioException;
 import Exceptions.MedicamentoException;
 import Funcionarios.BancoFuncionarios;
 import Funcionarios.Funcionario;
 import Medicamentos.Farmacia;
-import Medicamentos.Medicamento;
 import Paciente.BancoPacientes;
-import Paciente.Paciente;
 
-/**
- * Construtor
- * 
- *
- */
+
+
 public class Controller {
 	private boolean sistemaLiberado;
 	private Funcionario usuarioLogado;
@@ -30,6 +26,11 @@ public class Controller {
 	private Farmacia farmacia;
 	private Util util;
 	
+	/**
+	 * Construtor
+	 * 
+	 *
+	 */
 	public Controller(){
 		sistemaLiberado = false;
 		util = new Util();
@@ -72,7 +73,7 @@ public class Controller {
 	 * Recupera informacoes do usuario
 	 * @param matricula associa a matricula do funcionario
 	 * @param atributo associa ao atributo
-	 * @return a informação referente ao que foi pedido
+	 * @return a informacao referente ao que foi pedido
 	 * @throws ControllerException
 	 */
 	public String getInfoFuncionario(String matricula, String atributo) throws ControllerException{
@@ -84,7 +85,7 @@ public class Controller {
 	 * Recupera informacoes do Medicamentos
 	 * @param atributo associa ao atributo
 	 * @param nome associa ao nome 
-	 * @return a informação pedida
+	 * @return a informacao pedida
 	 * @throws ControllerException
 	 */
 	public String getInfoMedicamento(String atributo, String nome) throws ControllerException {
@@ -104,7 +105,7 @@ public class Controller {
 	/**
 	 * Consulta Medicamento pelo nome
 	 * @param nome associa ao nome
-	 * @return	informações do medicamento caso exista
+	 * @return	informacoes do medicamento caso exista
 	 * @throws ControllerException
 	 */
 	public String consultaMedNome(String nome) throws ControllerException {
@@ -235,8 +236,8 @@ public class Controller {
 	}
 	
 	/**
-	 * Atualiza a Senha de um usuário
-	 * @param senhaAntiga associa a antiga senha do usuario para confirmação
+	 * Atualiza a Senha de um usuario
+	 * @param senhaAntiga associa a antiga senha do usuario para confirmacao
 	 * @param senhaNova associa a nova senha que sera definida
 	 * @throws ControllerException
 	 * */
@@ -289,7 +290,7 @@ public class Controller {
 	}
 	/**
 	 *  Pega informacoes de um paciente
-	 *  @param id será usado para buscar o paciente em questao
+	 *  @param id sera usado para buscar o paciente em questao
 	 *  @param atributo associado ao atributo que sera retornado
 	 *  @return String do atributo
 	 *  @throws ControllerException
@@ -311,7 +312,7 @@ public class Controller {
 	
 	/**
 	 * Retorna o estoque de medicamentos
-	 * @param ordenacao define o tipo de ordenacao que será retornada
+	 * @param ordenacao define o tipo de ordenacao que sera retornada
 	 * @throws ControlerException
 	 * */
 	public String getEstoqueFarmacia(String ordenacao) throws ControllerException{
@@ -330,7 +331,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Verifica se o cargo é valido para criacao de um novo funcionario
+	 * Verifica se o cargo eh valido para criacao de um novo funcionario
 	 * @throws ControllerException
 	 * */
 	private void verificaCargo(String cargo) throws ControllerException{

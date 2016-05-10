@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Sistema.Facade;
 import easyaccept.EasyAcceptFacade;
 
-public class UserCaseTeste {
+public class UserCaseTest {
 
 	public static void main(String[] args) {
 		

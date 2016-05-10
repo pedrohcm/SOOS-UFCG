@@ -45,7 +45,7 @@ public class Facade {
 	 * Recupera informacao do usuario
 	 * @param matricula associa a matricula
 	 * @param atributo associa ao atributo
-	 * @return
+	 * @return o atributo desejado
 	 * @throws Exception
 	 */
 	public String getInfoFuncionario(String matricula, String atributo) throws Exception {
@@ -70,7 +70,14 @@ public class Facade {
 			throw new Exception("Erro no cadastro de funcionario. " + e.getMessage());
 		}
 	}
-
+	
+	/**
+	 * Atualiza Informacoes do Funcionario
+	 * @param matricula associa a matricula
+	 * @param atributo associa ao atributo
+	 * @param novoValor associa ao novo valor do atributo
+	 * @throws Exception
+	 */
 	public void atualizaInfoFuncionario(String matricula, String atributo, String novoValor) throws Exception {
 		try {
 			control.atualizaInfoFuncionario(matricula, atributo, novoValor);
@@ -78,15 +85,32 @@ public class Facade {
 			throw new Exception("Erro ao atualizar funcionario. " + e.getMessage());
 		}
 	}
-
+	
+	/**
+	 * Atualiza Informacoes do Funcionario
+	 * @param atributo associa ao atributo
+	 * @param novoValor associa ao novo valor do atributo
+	 * @throws Exception
+	 */
 	public void atualizaInfoFuncionario(String atributo, String novoValor) throws Exception {
 		try {
 			control.atualizaFuncionario(atributo, novoValor);
 		} catch (Exception e) {
-			throw new Exception("Erro ao atualizar funcionario. " + e.getMessage());
+			throw new Exception("Erro ao atualizar funcionario. " + e.getMessage());}
 		}
-	}
-
+	
+	
+	/**
+	 * Cadastra Paciente
+	 * @param nome associa ao nome
+	 * @param nascimento associa a data de nascimento
+	 * @param peso associa ao peso
+	 * @param sexo associa ao sexo
+	 * @param genero associa ao genero
+	 * @param tipoSanguineo associa ao tipo sanguineo
+	 * @return
+	 * @throws Exception
+	 */
 	public String cadastraPaciente(String nome, String nascimento, double peso, String sexo, String genero,
 			String tipoSanguineo) throws Exception {
 		try {
@@ -95,7 +119,12 @@ public class Facade {
 			throw new Exception("Nao foi possivel cadastrar o paciente. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Atualiza senha do usuario
+	 * @param senhaAntiga associa a senha antiga
+	 * @param senhaNova associa a senha nova
+	 * @throws Exception
+	 */
 	public void atualizaSenha(String senhaAntiga, String senhaNova) throws Exception {
 		try {
 			control.atualizaSenha(senhaAntiga, senhaNova);
@@ -103,7 +132,13 @@ public class Facade {
 			throw new Exception("Erro ao atualizar funcionario. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Recupera informacoes do paciente
+	 * @param id associa ao id 
+	 * @param atributo associa ao atributo
+	 * @return informacao deseja pelo usuario
+	 * @throws Exception
+	 */
 	public String getInfoPaciente(String id, String atributo) throws Exception {
 		try {
 			return control.getInfoPaciente(id, atributo);
@@ -111,7 +146,12 @@ public class Facade {
 			throw new Exception(e.getMessage());
 		}
 	}
-
+	/**
+	 * Recupera prontuario
+	 * @param posicao associa a posicao do prontuario
+	 * @return o prontuario desejado
+	 * @throws Exception
+	 */
 	public String getProntuario(String posicao) throws Exception {
 		try {
 			return control.getProntuario(posicao);
@@ -119,7 +159,16 @@ public class Facade {
 			throw new Exception("Erro ao consultar prontuario. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Cadastra Medicamentos
+	 * @param nome associa ao nome
+	 * @param tipo associa ao tipo
+	 * @param preco associa ao preco
+	 * @param quantidade associa a quantidade
+	 * @param categorias associa as categorias
+	 * @return nome do medicamento
+	 * @throws Exception
+	 */
 	public String cadastraMedicamento(String nome, String tipo, double preco, int quantidade, String categorias)
 			throws Exception {
 		try {
@@ -128,7 +177,13 @@ public class Facade {
 			throw new Exception("Erro no cadastro de medicamento. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Recupera informacoes do medicamento
+	 * @param atributo associa ao atributo
+	 * @param nome associa ao nome
+	 * @return a informacao desejada
+	 * @throws Exception
+	 */
 	public String getInfoMedicamento(String atributo, String nome) throws Exception {
 		try {
 			return control.getInfoMedicamento(atributo, nome);
@@ -136,7 +191,13 @@ public class Facade {
 			throw new Exception("Erro ao consultar medicamento. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Atualiza Medicamentos
+	 * @param nome associa ao nome do medicamento
+	 * @param atributo associa ao atributo
+	 * @param novoValor associa ao novo valor do atributo
+	 * @throws Exception
+	 */
 	public void atualizaMedicamento(String nome, String atributo, String novoValor) throws Exception {
 		try {
 			control.atualizaMedicamento(nome, atributo, novoValor);
@@ -144,7 +205,12 @@ public class Facade {
 			throw new Exception("Erro ao atualizar medicamento. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Consulta Medicamentos que contem categoria
+	 * @param categoria associa a categoria
+	 * @return Retorna todos os medicamentos que contem a categoria
+	 * @throws Exception
+	 */
 	public String consultaMedCategoria(String categoria) throws Exception {
 		try {
 			return control.consultaMedCategoria(categoria);
@@ -152,7 +218,12 @@ public class Facade {
 			throw new Exception("Erro na consulta de medicamentos. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Consulta Medicamento pelo nome
+	 * @param nome associa ao nome
+	 * @return informacoes do medicamento
+	 * @throws Exception
+	 */
 	public String consultaMedNome(String nome) throws Exception {
 		try {
 			return control.consultaMedNome(nome);
@@ -160,7 +231,10 @@ public class Facade {
 			throw new Exception("Erro na consulta de medicamentos. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Sai do sistema
+	 * @throws Exception
+	 */
 	public void logout() throws Exception {
 		try {
 			control.logout();
@@ -168,7 +242,12 @@ public class Facade {
 			throw new Exception("Nao foi possivel realizar o logout. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Exclui funcionario
+	 * @param matricula associa a matricula
+	 * @param senha associa a senha
+	 * @throws Exception
+	 */
 	public void excluiFuncionario(String matricula, String senha) throws Exception {
 		try {
 			control.excluirFuncionario(matricula, senha);
@@ -176,7 +255,10 @@ public class Facade {
 			throw new Exception("Erro ao excluir funcionario. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Fecha o sistema
+	 * @throws Exception
+	 */
 	public void fechaSistema() throws Exception {
 		try {
 			control.verificaLogin();
@@ -184,7 +266,12 @@ public class Facade {
 			throw new Exception("Nao foi possivel fechar o sistema. " + e.getMessage());
 		}
 	}
-
+	/**
+	 * Recupera todos os medicamentos da farmacia
+	 * @param ordenacao qual tipo de ordenacao o usuario deseja
+	 * @return medicamentos ordenados
+	 * @throws Exception
+	 */
 	public String getEstoqueFarmacia(String ordenacao) throws Exception {
 		try {
 			return control.getEstoqueFarmacia(ordenacao);

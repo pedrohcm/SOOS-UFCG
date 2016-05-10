@@ -1,7 +1,14 @@
 package Medicamentos;
 
 public class MedicamentoReferencia extends Medicamento {
-
+	
+	/**
+	 * Construtor de medicamento por referencia
+	 * @param nome associa ao nome
+	 * @param preco associa ao preco
+	 * @param quantidade associa a quantidade
+	 * @param categorias associa as categorias
+	 */
 	public MedicamentoReferencia(String nome, double preco, int quantidade, String categorias) {
 		super(nome, preco, quantidade, categorias);
 	}

@@ -10,16 +10,27 @@ import Funcionarios.Medico;
 import Funcionarios.Tecnico;
 
 public class FuncionarioFactory {
+	
 	private int numeroDeContas;
 	final String prefixoDiretor = "1";
 	final String prefixoMedico = "2";
 	final String prefixoTecnico = "3";
-	
+	/**
+	 * Construtor 
+	 */
 	public FuncionarioFactory(){
 		numeroDeContas = 1;
 	}
 	
-	
+	/**
+	 * Cria Usuario
+	 * @param nome associa ao nome
+	 * @param cargo associa ao cargo
+	 * @param data associa a data de nascimento
+	 * @return retorna o funcionario criado
+	 * @throws DataInvalidaException
+	 * @throws FuncionarioException
+	 */
 	public Funcionario criaUsuario(String nome, String cargo, String data) throws DataInvalidaException, FuncionarioException{
 		
 		String matricula = gerarMatricula(cargo);
@@ -51,7 +62,11 @@ public class FuncionarioFactory {
 		
 		return null;
 	}
-	
+	/**
+	 * Gera a matricula do funcionario
+	 * @param cargo associa ao cargo
+	 * @return matricula do funcionario
+	 */
 	private String gerarMatricula(String cargo){
 		cargo = cargo.toLowerCase();
 		String matricula;
@@ -69,13 +84,23 @@ public class FuncionarioFactory {
 	return "Cargo Invalido.";
 	}
 	
-	
+	/**
+	 * Gera a senha
+	 * @param matricula associa a matricula
+	 * @param ano associa ao ano atual
+	 * @return senha gerada
+	 */
 	private String gerarSenha(String matricula, String ano){
 		String senha = ano + matricula.subSequence(0,4);
 		return senha;
 	}
 	
-
+	/**
+	 * Formata a data
+	 * @param data associa a data de nascimento
+	 * @return data formatada
+	 * @throws DataInvalidaException
+	 */
 	private LocalDate dataFormatChanges(String data) throws DataInvalidaException { 
 
 		String[] newDate = data.split("/");

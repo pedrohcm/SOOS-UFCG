@@ -27,7 +27,6 @@ public class MedicamentoFactory {
 			return criaMedicamentoReferencia(nome, preco, quantidade, categorias);
 		}
 		return null;
-		// lancar excecao aqui (caso nao seja nenhum dos tipos)
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package Funcionarios;
 
+import java.util.HashSet;
+
 import Exceptions.FuncionarioException;
 
 public class Tecnico extends Funcionario {
@@ -14,5 +16,17 @@ public class Tecnico extends Funcionario {
 	 */
 	public Tecnico(String nome,String matricula,String senha,String data,String cargo) throws FuncionarioException{
 		super(nome,matricula,senha,data,cargo);
+		definirPermissoes();
+	}
+
+	/**
+	 * Na especificação do problema o tecnico tem permissao para cadastro de pacientes e medicamentos
+	 * */
+	@Override
+	protected void definirPermissoes() {
+		HashSet<Permissoes> permissoesConcedidas = this.getPermissoes();
+		permissoesConcedidas.add(Permissoes.CADASTRAPACIENTE);
+		permissoesConcedidas.add(Permissoes.CADASTRAMEDICAMENTO);
+		this.setPermissoes(permissoesConcedidas);
 	}
 }

@@ -1,14 +1,16 @@
 package Funcionarios;
 
+import java.util.HashSet;
+
 import Exceptions.FuncionarioException;
 
-public class Funcionario {
+public abstract class Funcionario {
 	private String nome;
 	private String matricula;
 	private String senha;
 	private String data;
 	private String cargo;
-	
+	private HashSet<Permissoes> listadepermissoes;
 	/**
 	 * Construtor de Funcionario
 	 * @param nome associa ao nome
@@ -25,6 +27,23 @@ public class Funcionario {
 		this.data = data;
 		this.senha = senha;
 		this.cargo = cargo;
+		listadepermissoes = new HashSet<Permissoes>();
+	}
+	
+	/**
+	 * Metodo abstrato usada para definir as permissoes de cada tipo de usuario de forma distinta
+	 * */
+	protected abstract void definirPermissoes();
+	
+	/**
+	 * Metodo que verifica se determinado usuario possui ou nao uma permissao especifica
+	 * */
+	public boolean verificaPermissao(Permissoes permissao){
+		if (this.listadepermissoes.contains(permissao)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	/**
 	 * Verifica se os dados sao validos
@@ -104,7 +123,9 @@ public class Funcionario {
 	public String getData(){
 		return formataData(this.data);
 	}
-	
+	public HashSet<Permissoes> getPermissoes(){
+		return this.listadepermissoes;
+	}
 	public void setNome(String nome){
 		this.nome = nome;
 	}
@@ -114,7 +135,9 @@ public class Funcionario {
 	public void setData(String data){
 		this.data = data;
 	}
-	
+	public void setPermissoes(HashSet<Permissoes> permissoesConcedidas){
+		this.listadepermissoes = permissoesConcedidas;
+	}
 	
 	@Override
 	public int hashCode() {

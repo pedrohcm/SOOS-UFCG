@@ -13,6 +13,7 @@ import Exceptions.FuncionarioException;
 import Exceptions.MedicamentoException;
 import Funcionarios.BancoFuncionarios;
 import Funcionarios.Funcionario;
+import Funcionarios.Permissoes;
 import Medicamentos.Farmacia;
 import Paciente.BancoPacientes;
 
@@ -123,7 +124,7 @@ public class Controller {
 	 * @throws ControllerException
 	 */
 	public String cadastrarFuncionarios(String nome,String cargo ,String nascimento) throws DataInvalidaException, FuncionarioException, ControllerException{
-		if(util.verificaPermissao(usuarioLogado,"Diretor Geral")){
+		if(usuarioLogado.verificaPermissao(Permissoes.CADASTRAFUNCIONARIO)){
 			verificaCargo(cargo);
 			return bancoFuncionarios.cadastrarFuncionarios(nome, cargo, nascimento);
 		}else{
@@ -142,7 +143,7 @@ public class Controller {
 	 * @throws MedicamentoException
 	 */
 	public String cadastraMedicamento(String nome, String tipo, double preco, int quantidade, String categorias) throws ControllerException, MedicamentoException {
-		if(util.verificaPermissao(usuarioLogado, "Tecnico Administrativo")) {
+		if(usuarioLogado.verificaPermissao(Permissoes.CADASTRAMEDICAMENTO)) {
 			util.nomeMedicamento(nome);
 			util.precoMedicamento(preco);
 			util.quantidadeMedicamento(quantidade);
@@ -178,7 +179,7 @@ public class Controller {
 	 * */
 	public void excluirFuncionario(String matricula,String senha) throws ControllerException{
 		util.verificaMatricula(matricula);
-		if(util.verificaPermissao(usuarioLogado,"Diretor Geral")){
+		if(usuarioLogado.verificaPermissao(Permissoes.EXCLUI)){
 			usuarioLogado.confirmarSenha(senha);
 			bancoFuncionarios.excluiFuncionario(matricula);
 		}else{
@@ -278,7 +279,7 @@ public class Controller {
 	 * @throws ControllerException
 	 * */
 	public String cadastraPaciente(String nome, String nascimento, double peso, String sexo, String genero, String tipoSanguineo) throws ControllerException{
-		if(util.verificaPermissao(usuarioLogado,"Diretor Geral") || util.verificaPermissao(usuarioLogado,"Tecnico Administrativo")){
+		if(usuarioLogado.verificaPermissao(Permissoes.CADASTRAPACIENTE)){
 			util.Nomepaciente(nome);
 			util.data(nascimento);
 			util.peso(peso);

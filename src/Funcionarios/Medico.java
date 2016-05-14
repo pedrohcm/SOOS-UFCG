@@ -16,4 +16,10 @@ public class Medico extends Funcionario {
 	super(nome,matricula,senha,data,cargo);
 	}
 
+	@Override
+	public void definirPermissoes() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -1,5 +1,7 @@
 package Funcionarios;
 
+import java.util.HashSet;
+
 import Exceptions.FuncionarioException;
 
 public class Diretor extends Funcionario {
@@ -14,6 +16,18 @@ public class Diretor extends Funcionario {
 	 */
 	public Diretor(String nome, String matricula, String senha, String data,String cargo) throws FuncionarioException {
 		super(nome, matricula, senha, data,cargo);
+		definirPermissoes();
 	}
-
+	/**
+	 * Na especificacao do problema o diretor tem todas as permissoes possiveis
+	 * */
+	protected void definirPermissoes(){
+		HashSet<Permissoes> permissoesConcedidas = this.getPermissoes();
+		permissoesConcedidas.add(Permissoes.ATUALIZADADOS);
+		permissoesConcedidas.add(Permissoes.CADASTRAFUNCIONARIO);
+		permissoesConcedidas.add(Permissoes.CADASTRAMEDICAMENTO);
+		permissoesConcedidas.add(Permissoes.CADASTRAPACIENTE);
+		permissoesConcedidas.add(Permissoes.EXCLUI);
+		this.setPermissoes(permissoesConcedidas);
+	}
 }

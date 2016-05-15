@@ -15,6 +15,9 @@ public class UserCaseTest {
 		list.add("Usercase/usecase_2.txt");
 		list.add("Usercase/usecase_3.txt");
 		list.add("Usercase/usecase_4.txt");
+		list.add("Usercase/usecase_5.txt");
+		list.add("Usercase/usecase_6.txt");
+		list.add("Usercase/usecase_7.txt");
 		
 		Facade fachada = new Facade();
 		

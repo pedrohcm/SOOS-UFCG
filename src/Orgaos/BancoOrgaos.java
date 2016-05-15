@@ -21,57 +21,81 @@ public class BancoOrgaos {
 	 * Adiciona um novo orgao no banco.
 	 * @param nome nome do orgao a ser criado na factory
 	 * @param tipoSanguineo  tipo Sanguineo do orgao a ser criado na factory
-	 * @return nome do orgao
 	 */
-	public String adicionaOrgao(String nome, String tipoSanguineo) {
+	public void adicionaOrgao(String nome, String tipoSanguineo) {
 		Orgao orgao = factoryOrgaos.criaOrgao(nome, tipoSanguineo);
 		orgaos.add(orgao);
-		return orgao.getNome();
 	}
 	
 	/**
 	 * Remove um orgao do banco
 	 * @param nome nome do orgao ser removido
+	 * @param tipoSanguineo tipoSanguineo do orgao a ser removido
 	 * @throws OrgaoException caso o orgao nao exista no banco
 	 */
-	public void removeOrgao(String nome) throws OrgaoException {
+	public void retiraOrgao(String nome, String tipoSanguineo) throws OrgaoException {
+		existeOrgao(nome);
 		for(Orgao orgao: orgaos) {
-			if(orgao.getNome().equals(nome)) {
+			if(orgao.getNome().equals(nome) && orgao.getTipoSanguineo().equals(tipoSanguineo)) {
 				orgaos.remove(orgao);
 				return;
 			}
 		}
-		throw new OrgaoException("Orgao nao existe.");
+		throw new OrgaoException("Orgao nao cadastrado.");
 	}
 	
 	/**
-	 * Recupera um orgao que tenha o mesmo nome recebido
-	 * @param nome nome do orgao a ser recuperado
-	 * @return o objeto, caso ele exista
+	 * Recupera os tipos sanguineos do orgao com o nome recebido
+	 * @param nome nome do orgao a ser pesquisado
+	 * @return String com os tipos Sanguineos do orgao
 	 * @throws OrgaoException caso o objeto nao exista
 	 */
-	public Orgao getOrgaoNome(String nome) throws OrgaoException {
+	public String buscaOrgaoNome(String nome) throws OrgaoException {
+		existeOrgao(nome);
+		String listaTiposSanguineos = null;
 		for(Orgao orgao: orgaos) {
 			if(orgao.getNome().equals(nome)) {
-				return orgao;
+				listaTiposSanguineos += orgao.getTipoSanguineo() + ",";
 			}
 		}
-		throw new OrgaoException("Orgao nao existe.");
+		return listaTiposSanguineos.substring(4, (listaTiposSanguineos.length()-1));
 	}
 	
 	/**
-	 * Recupera um orgao que tenha o mesmo tipo Sanguineo recebido
+	 * Recupera uma String com os orgaos que tenha o mesmo tipo Sanguineo recebido
 	 * @param tipo tipo Sanguineo do orgao a ser recuperado
-	 * @return o objeto, caso ele exista
-	 * @throws OrgaoException caso o objeto nao exista
+	 * @return String com o nome dos orgaos
+	 * @throws OrgaoException caso nao haja nenhum orgao cadastrado
 	 */
-	public Orgao getOrgaoTipoSanguineo(String tipo) throws OrgaoException {
+	public String buscaOrgaoTipoSanguineo(String tipo) throws OrgaoException {
+		String listaOrgaos = "vazio";
 		for(Orgao orgao: orgaos) {
 			if(orgao.getTipoSanguineo().equals(tipo)) {
-				return orgao;
+				if(!listaOrgaos.contains(orgao.getNome())) {
+					listaOrgaos += orgao.getNome() + ",";
+				}
 			}
 		}
-		throw new OrgaoException("Orgao nao existe.");
+		if(listaOrgaos.equals("vazio")) {
+			throw new OrgaoException("Nao ha orgaos cadastrados para esse tipo sanguineo.");
+		}
+		return listaOrgaos.substring(5, (listaOrgaos.length()-1));
+	}
+	
+	/**
+	 * Verifica se existe um orgao que tenha o nome e tipoSanguineo recebido
+	 * @param nome nomedo orgao a ser pesquisado
+	 * @param tipoSanguineo tipoSanguineo a ser pesquisado
+	 * @return boolean se existe ou nao.
+	 * @throws OrgaoException 
+	 */
+	public boolean buscaOrgao(String nome, String tipoSanguineo) throws OrgaoException {
+		for(Orgao orgao: orgaos) {
+			if(orgao.getNome().equals(nome) && orgao.getTipoSanguineo().equals(tipoSanguineo)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -86,8 +110,10 @@ public class BancoOrgaos {
 	 * Retorna a quantidade de orgaos que tem o mesmo nome recebido
 	 * @param nome nome do orgao a ser pesquisado
 	 * @return a quantidade do orgao;
+	 * @throws OrgaoException caso nao exista o orgao
 	 */
-	public int getQuantidadeOrgao(String nome) {
+	public int getQuantidadeOrgao(String nome) throws OrgaoException {
+		existeOrgao(nome);
 		int quantidade = 0;
 		for(Orgao orgao: orgaos) {
 			if(orgao.getNome().equals(nome)) {
@@ -95,6 +121,21 @@ public class BancoOrgaos {
 			}
 		}
 		return quantidade;
+	}
+	
+	/**
+	 * Verifica se o orgao com o nome recebido esta cadastrado
+	 * @param nome nome do orgao a ser verificado
+	 * @return true se estiver cadastrado
+	 * @throws OrgaoException caso nao exista orgao com esse nome cadastrado
+	 */
+	private boolean existeOrgao(String nome) throws OrgaoException {
+		for(Orgao orgao: orgaos) {
+			if(orgao.getNome().equals(nome)) {
+				return true;
+			}
+		}
+		throw new OrgaoException("Orgao nao cadastrado.");
 	}
 		
 }

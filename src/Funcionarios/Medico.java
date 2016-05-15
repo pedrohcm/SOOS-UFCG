@@ -1,5 +1,7 @@
 package Funcionarios;
 
+import java.util.HashSet;
+
 import Exceptions.FuncionarioException;
 
 public class Medico extends Funcionario {
@@ -13,13 +15,15 @@ public class Medico extends Funcionario {
 	 * @throws FuncionarioException
 	 */
 	public Medico(String nome, String matricula, String senha, String data,String cargo) throws FuncionarioException {
-	super(nome,matricula,senha,data,cargo);
+		super(nome,matricula,senha,data,cargo);
+		definirPermissoes();
 	}
 
 	@Override
 	public void definirPermissoes() {
-		// TODO Auto-generated method stub
-		
+		HashSet<Permissoes> permissoesConcedidas = this.getPermissoes();
+		permissoesConcedidas.add(Permissoes.CADASTRAORGAO);
+		this.setPermissoes(permissoesConcedidas);	
 	}
 
 }

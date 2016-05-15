@@ -11,10 +11,13 @@ import Exceptions.ControllerException;
 import Exceptions.DataInvalidaException;
 import Exceptions.FuncionarioException;
 import Exceptions.MedicamentoException;
+import Exceptions.OrgaoException;
+import Exceptions.TipoSanguineoException;
 import Funcionarios.BancoFuncionarios;
 import Funcionarios.Funcionario;
 import Funcionarios.Permissoes;
 import Medicamentos.Farmacia;
+import Orgaos.BancoOrgaos;
 import Paciente.BancoPacientes;
 
 
@@ -26,6 +29,7 @@ public class Controller {
 	private BancoFuncionarios bancoFuncionarios;
 	private Farmacia farmacia;
 	private Util util;
+	private BancoOrgaos bancoOrgaos;
 	
 	/**
 	 * Construtor
@@ -38,6 +42,7 @@ public class Controller {
 		bancoPacientes = new BancoPacientes();
 		bancoFuncionarios = new BancoFuncionarios();
 		farmacia = new Farmacia();
+		bancoOrgaos = new BancoOrgaos();
 	}
 	
 	/**
@@ -320,6 +325,87 @@ public class Controller {
 		util.verificaOrdenacao(ordenacao);
 		return farmacia.getListaOrdenada(ordenacao);
 	}
+	
+	/**
+	 * Cadastra um orgao no banco de Orgaos
+	 * @param nome nome do orgao a ser cadastrado
+	 * @param tipo tipoSanguineo do orgao
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public void cadastraOrgao(String nome, String tipo) throws ControllerException {
+		if(usuarioLogado.verificaPermissao(Permissoes.CADASTRAORGAO)) {
+			util.nomeOrgao(nome);
+			util.tipoSanguineo(tipo);
+			bancoOrgaos.adicionaOrgao(nome, tipo);
+		} else {
+			throw new ControllerException("O funcionario " + usuarioLogado.getNome() +" nao tem permissao para cadastrar orgaos.");
+		}	
+	}
+	
+	/**
+	 * Busca um orgao no banco de Orgaos pelo tipoSanguineo
+	 * @param tipoSanguineo tipoSanguineo a ser pesquisado
+	 * @return lista com os orgaos que possuem o tipoSanguineo
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public String buscaOrgaoPorSangue(String tipoSanguineo) throws ControllerException {
+		util.tipoSanguineo(tipoSanguineo);
+		return bancoOrgaos.buscaOrgaoTipoSanguineo(tipoSanguineo);
+	}
+	
+	/**
+	 * Busca um orgao no banco de Orgaos pelo nome
+	 * @param nome nome do orgao a ser pesquisado
+	 * @return lista com os orgaos que possuem o tipoSanguineo
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public String buscaOrgaoPorNome(String nome) throws ControllerException {
+		util.nomeOrgao(nome);
+		return bancoOrgaos.buscaOrgaoNome(nome);
+	}
+	
+	/**
+	 * Busca um orgao que contem o nome e o tipo sanguineo recebidos
+	 * @param nome nome do orgao a ser pesquisado
+	 * @param tipoSanguineo tipo sanguineo do orgao a ser pesquisado
+	 * @return boolean se existe
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public boolean buscaOrgao(String nome, String tipoSanguineo) throws ControllerException {
+		util.tipoSanguineo(tipoSanguineo);
+		return bancoOrgaos.buscaOrgao(nome, tipoSanguineo);
+	}
+	
+	/**
+	 * Retorna a quantidade de orgaos que tem o nome recebido
+	 * @param nome nome do orgao a ser pesquisado
+	 * @return int quantidade de orgaos com o nome no banco
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public int qntOrgaos(String nome) throws ControllerException {
+		util.nomeOrgao(nome);
+		return bancoOrgaos.getQuantidadeOrgao(nome);
+	}
+	
+	/**
+	 * Retorna a quantidade de orgaos cadastradosno banco de orgaos
+	 */
+	public int totalOrgaosDisponiveis() {
+		return bancoOrgaos.getQuantidadeBanco();
+	}
+	
+	/**
+	 * Remove um orgao do banco de Orgaos
+	 * @param nome nome do orgao ser removido
+	 * @param tipoSanguineo tipoSanguineo do orgao a ser removido
+	 * @throws OrgaoException caso o orgao nao exista no banco
+	 */
+	public void retiraOrgao(String nome, String tipoSanguineo) throws ControllerException {
+		util.nomeOrgao(nome);
+		util.tipoSanguineo(tipoSanguineo);
+		bancoOrgaos.retiraOrgao(nome, tipoSanguineo);
+	}
+	
 	
 	/**
 	 * Verifica se o sistema ja foi liberado anteriormente

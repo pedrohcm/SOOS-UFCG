@@ -1,6 +1,8 @@
 package Sistema;
 
-
+import Exceptions.BancoOrgaosException;
+import Exceptions.ControllerException;
+import Exceptions.OrgaoException;
 
 public class Facade {
 	Controller control;
@@ -279,4 +281,97 @@ public class Facade {
 			throw new Exception("Erro na consulta de medicamentos. " + e.getMessage());
 		}
 	}
+	
+	/**
+	 * Cadastra um orgao no banco de Orgaos
+	 * @param nome nome do orgao a ser cadastrado
+	 * @param tipo tipoSanguineo do orgao
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public void cadastraOrgao(String nome, String tipo) throws BancoOrgaosException {
+		try {
+			control.cadastraOrgao(nome, tipo);
+		} catch(Exception e) {
+			throw new BancoOrgaosException(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Busca um orgao no banco de Orgaos pelo tipoSanguineo
+	 * @param tipoSanguineo tipoSanguineo a ser pesquisado
+	 * @return lista com os orgaos que possuem o tipoSanguineo
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public String buscaOrgPorSangue(String tipoSanguineo) throws BancoOrgaosException {
+		try {
+			return control.buscaOrgaoPorSangue(tipoSanguineo);
+		} catch (ControllerException e) {
+			throw new BancoOrgaosException(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Busca um orgao no banco de Orgaos pelo nome
+	 * @param nome nome do orgao a ser pesquisado
+	 * @return lista com os orgaos que possuem o tipoSanguineo
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public String buscaOrgPorNome(String nome) throws BancoOrgaosException{
+		try {
+			return control.buscaOrgaoPorNome(nome);
+		} catch (ControllerException e) {
+			throw new BancoOrgaosException(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Busca um orgao que contem o nome e o tipo sanguineo recebidos
+	 * @param nome nome do orgao a ser pesquisado
+	 * @param tipoSanguineo tipo sanguineo do orgao a ser pesquisado
+	 * @return boolean se existe
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public boolean buscaOrgao(String nome, String tipoSanguineo) throws BancoOrgaosException {
+		try {
+			return control.buscaOrgao(nome, tipoSanguineo);
+		} catch (ControllerException e) {
+			throw new BancoOrgaosException(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Retorna a quantidade de orgaos que tem o nome recebido
+	 * @param nome nome do orgao a ser pesquisado
+	 * @return int quantidade de orgaos com o nome no banco
+	 * @throws ControllerException caso algum dado esteja invalido
+	 */
+	public int qtdOrgaos(String nome) throws BancoOrgaosException {
+		try {
+			return control.qntOrgaos(nome);
+		} catch (ControllerException e) {
+			throw new BancoOrgaosException(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Retorna a quantidade de orgaos cadastradosno banco de orgaos
+	 */
+	public int totalOrgaosDisponiveis() {
+		return control.totalOrgaosDisponiveis();
+	}
+	
+	/**
+	 * Remove um orgao do banco de Orgaos
+	 * @param nome nome do orgao ser removido
+	 * @param tipoSanguineo tipoSanguineo do orgao a ser removido
+	 * @throws OrgaoException caso o orgao nao exista no banco
+	 */
+	public void retiraOrgao(String nome, String tipoSanguineo) throws Exception {
+		try {
+			control.retiraOrgao(nome, tipoSanguineo);
+		} catch (ControllerException e) {
+			throw new Exception("Erro na retirada de orgaos. " + e.getMessage());
+		}
+	}
+	
 }

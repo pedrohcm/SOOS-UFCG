@@ -3,7 +3,9 @@ package Sistema;
 import Exceptions.ControllerException;
 import Exceptions.DataInvalidaException;
 import Exceptions.MedicamentoException;
+import Exceptions.OrgaoException;
 import Exceptions.PacienteException;
+import Exceptions.TipoSanguineoException;
 import Funcionarios.Funcionario;
 
 public class Util {
@@ -46,6 +48,12 @@ public class Util {
 		if (nome.equals("") || nome.equals(" ") || nome == null) {
 			throw new MedicamentoException(
 					"Nome do medicamento nao pode ser vazio.");
+		}
+	}
+	
+	public void nomeOrgao(String nome) throws OrgaoException {
+		if (nome.equals("") || nome.equals(" ") || nome == null) {
+			throw new OrgaoException("Nome do orgao nao pode ser vazio.");
 		}
 	}
 
@@ -110,14 +118,13 @@ public class Util {
 	}
 
 	/**
-	 * Verifica os tipo de sanguineo
+	 * Verifica o tipo de sanguineo
 	 * 
-	 * @param tiposanguineo
-	 *            associa ao tipo sanguineo
+	 * @param tiposanguineo  associa ao tipo sanguineo
 	 * @return
-	 * @throws PacienteException
+	 * @throws TipoSanguineoException
 	 */
-	public boolean tipoSanguineo(String tiposanguineo) throws PacienteException {
+	public boolean tipoSanguineo(String tiposanguineo) throws TipoSanguineoException {
 		tiposanguineo = tiposanguineo.toLowerCase();
 		switch (tiposanguineo) {
 		case "ab+":
@@ -137,7 +144,7 @@ public class Util {
 		case "o-":
 			return true;
 		default:
-			throw new PacienteException("Tipo sanguineo invalido.");
+			throw new TipoSanguineoException();
 		}
 	}
 

@@ -46,8 +46,9 @@ public class BancoPacientes {
 	 * @param id o id a ser pesquisado
 	 * @param atributo atributo a ser retornado
 	 * @return string com o atributo
+	 * @throws PacienteException 
 	 */
-	public String getInfoPaciente(String id, String atributo) {
+	public String getInfoPaciente(String id, String atributo) throws PacienteException {
 		Paciente paciente = buscaPaciente(id);
 		atributo = atributo.toLowerCase();
 		switch(atributo){
@@ -87,8 +88,10 @@ public class BancoPacientes {
 	 * Recupera um paciente com o id recebido
 	 * @param id id do paciente a ser recuperado
 	 * @return paciente
+	 * @throws PacienteException 
 	 */
-	public Paciente buscaPaciente(String id){
+	public Paciente buscaPaciente(String id) throws PacienteException{
+		verificaID(id);
 		for (Paciente paciente : pacientes){
 			String ID = String.format("%d",paciente.getID());
 			if (ID.equals(id)){
@@ -204,6 +207,12 @@ public class BancoPacientes {
 	public String toString() {
 		return "BancoPacientes [pacientes=" + pacientes + "]";
 	}
-	
-	
+	/**
+	 * Verifica se a ID de um paciente é vazia
+	 * */
+	private  void verificaID(String id ) throws PacienteException{
+		if (id.equals("") || id.equals(" ")){
+			throw new PacienteException("ID do paciente nao pode ser vazio.");
+		}
+	}
 }

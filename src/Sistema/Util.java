@@ -5,6 +5,7 @@ import Exceptions.DataInvalidaException;
 import Exceptions.MedicamentoException;
 import Exceptions.OrgaoException;
 import Exceptions.PacienteException;
+import Exceptions.ProcedimentoException;
 import Exceptions.TipoSanguineoException;
 import Funcionarios.Funcionario;
 
@@ -102,7 +103,16 @@ public class Util {
 			throw new DataInvalidaException("Data invalida.");
 		}
 	}
-
+	/**
+	 * Verifica se o nome do orgao nao é vazio
+	 * @param orgao
+	 * @throws OrgaoException caso o nome do orgao seja vazio
+	 * */
+	public void verificaNomeOrgao(String orgao) throws OrgaoException{
+		if (orgao.equals("") || orgao.equals(" ")){
+			throw new OrgaoException("Nome do orgao nao pode ser vazio.");
+		}
+	}
 	/**
 	 * Verifica o peso
 	 * 
@@ -293,6 +303,17 @@ public class Util {
 		if (!(ordenacao.toLowerCase().equals("preco") || ordenacao
 				.equals("alfabetica"))) {
 			throw new ControllerException("Tipo de ordenacao invalida.");
+		}
+	}
+	/**
+	 * Verifica se o procedimento requisitado é um procedimento valido
+	 * @param Procedimento requisitado
+	 * @throws ProcedimentoException Caso seja um procedimento invalido
+	 * */
+	public void verificaProcedimento(String procedimento) throws ProcedimentoException {
+		procedimento = procedimento.toLowerCase();
+		if(!procedimento.equals("consulta clinica") && !procedimento.equals("cirurgia bariatrica") && !procedimento.equals("redesignacao sexual") && !procedimento.equals("transplante de orgaos")){
+			throw new ProcedimentoException("Procedimento invalido.");
 		}
 	}
 

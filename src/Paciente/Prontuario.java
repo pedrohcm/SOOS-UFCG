@@ -1,6 +1,7 @@
 package Paciente;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 
 public class Prontuario{
@@ -11,7 +12,7 @@ public class Prontuario{
 	private String sexo;
 	private String genero;
 	private int id;
-	
+	private LinkedList<String> listadeprocedimentos;
 	/**
 	 * Construtor de Prontuario
 	 * @param nome associa ao nome
@@ -30,6 +31,7 @@ public class Prontuario{
 		this.sexo = sexo;
 		this.genero = genero;
 		this.id = id;
+		listadeprocedimentos = new LinkedList<String>();
 	}
 	
 	/**
@@ -153,5 +155,29 @@ public class Prontuario{
 		return "Prontuario [nome=" + nome + ", nascimento=" + nascimento + ", peso=" + peso + ", tipoSanguineo="
 				+ tipoSanguineo + ", sexo=" + sexo + ", genero=" + genero + ", id=" + id + "]";
 	}
-	
+	/**
+	 * Adiciona o procedimento efetuado na lista de procedimentos do prontuario
+	 * */
+	public void adicionarProcedimentoALista(String procedimento){
+		listadeprocedimentos.add(procedimento);
+	}
+	/**
+	 * Modifica o peso do paciente
+	 * */
+	public void setPeso(double peso){
+		this.peso = peso;
+	}
+	/**
+	 * Modifica o Genero do Paciente
+	 * */
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	/**
+	 * Recupera o tamanho da lista de procedimentos do prontuario
+	 * @return Quantidade de procedimentos
+	 * */
+	public int getProcedimentosSize() {
+		return listadeprocedimentos.size();
+	}
 }

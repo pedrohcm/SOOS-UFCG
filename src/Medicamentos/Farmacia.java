@@ -109,7 +109,17 @@ public class Farmacia {
 		}
 		return remedio.toString();
 	}
-	
+	/**
+	 * Consulta Medicamento pelo nome
+	 * @param nome associa ao nome
+	 * @throws ControllerException
+	 */
+	public void consultaMedPorNome(String nome) throws ControllerException {
+		Medicamento remedio = getMedicamento(nome);
+		if(remedio == null) {
+			throw new ControllerException("Medicamento nao cadastrado.");
+		}
+	}
 	/**
 	 * Adiciona medicamento no banco de dados
 	 * @param remedio associa ao medicamento
@@ -235,11 +245,28 @@ public class Farmacia {
 	 * @throws ControllerException
 	 * */
 	private Medicamento verificarMedicamento(String nome) throws ControllerException {
-		if(getMedicamento(nome) == null) {
+		if(nome.equals("") || nome.equals(" ")){
+			throw new ControllerException("Nome do medicamento nao pode ser vazio.");
+		}
+		else if(getMedicamento(nome) == null) {
 			throw new ControllerException("Medicamento nao cadastrado.");
 		}
 		return getMedicamento(nome);
 	}
-	
-	
+	/**
+	 * Verifica se os medicamentos pedidos existem no estoque
+	 * @param medicamentos String com os medicamentos a serem avaliados
+	 * @return preco total dos medicamentos  pedidos
+	 * @throws ControllerException
+	 * */
+	public double verificaListaDeMedicamentos(String medicamentos) throws ControllerException{
+		String[] listademedicamentos = medicamentos.split(",");
+		double preco = 0;
+		for (String medicamento : listademedicamentos){
+			verificarMedicamento(medicamento);
+			consultaMedPorNome(medicamento);
+			preco += getMedicamento(medicamento).getPreco();
+		}
+		return preco;
+	}
 }

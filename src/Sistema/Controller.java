@@ -1,5 +1,7 @@
 package Sistema;
 
+
+
 /**
  * Raquel Rufino
  * Ionesio Junior
@@ -7,18 +9,19 @@ package Sistema;
  */
 
 import Exceptions.ControllerException;
-
 import Exceptions.DataInvalidaException;
 import Exceptions.FuncionarioException;
 import Exceptions.MedicamentoException;
 import Exceptions.OrgaoException;
-import Exceptions.TipoSanguineoException;
+import Exceptions.PacienteException;
 import Funcionarios.BancoFuncionarios;
 import Funcionarios.Funcionario;
 import Funcionarios.Permissoes;
 import Medicamentos.Farmacia;
 import Orgaos.BancoOrgaos;
 import Paciente.BancoPacientes;
+import Paciente.Paciente;
+import Procedimentos.GerenciadorDeProcedimentos;
 
 
 
@@ -30,6 +33,7 @@ public class Controller {
 	private Farmacia farmacia;
 	private Util util;
 	private BancoOrgaos bancoOrgaos;
+	private GerenciadorDeProcedimentos gerenciaDeProcedimento;
 	
 	/**
 	 * Construtor
@@ -43,6 +47,7 @@ public class Controller {
 		bancoFuncionarios = new BancoFuncionarios();
 		farmacia = new Farmacia();
 		bancoOrgaos = new BancoOrgaos();
+		gerenciaDeProcedimento = new GerenciadorDeProcedimentos();
 	}
 	
 	/**
@@ -326,6 +331,9 @@ public class Controller {
 		return farmacia.getListaOrdenada(ordenacao);
 	}
 	
+	// Caso 5
+	
+	
 	/**
 	 * Cadastra um orgao no banco de Orgaos
 	 * @param nome nome do orgao a ser cadastrado
@@ -407,14 +415,64 @@ public class Controller {
 	}
 	
 	
+
+	// Caso 6
+	
 	/**
-	 * Verifica se o sistema ja foi liberado anteriormente
+	 * Recupera o ID de um paciente pelo nome
+	 * @param Nome do paciente ao qual o id sera recuperado
+	 * @return String com o id
+	 * @throws ControllerException caso o Paciente nao seja encontrado
+	 * */
+	public String getPacienteID(String nome) throws ControllerException {
+		Paciente paciente = bancoPacientes.getPaciente(nome);
+		if(paciente == null){
+			throw new ControllerException("Paciente nao cadastrado.");
+		}
+		String idString = String.format("%d", paciente.getID());
+		return  idString;
+	}
+	/**
+	 * Realiza um determinado procedimento em um paciente
+	 * @param Procedimento a ser Realizado
+	 * @param Id do paciente que sera realizado o procedimento
+	 * @param medicamentos ultilizados no procedimento
 	 * @throws ControllerException
 	 * */
-	private void verificaSistema() throws ControllerException{
-		if (sistemaLiberado == true){
-			throw new ControllerException("Sistema liberado anteriormente.");
-		}
+	public void realizaProcedimento(String procedimento, String idPaciente, String medicamentos) throws ControllerException {
+		Paciente paciente  = bancoPacientes.buscaPaciente(idPaciente);
+		double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
+		double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
+		double precoTotal = precoMedicamentos + precoProcedimento;
+		paciente.armazenarGastos(precoTotal);
+	}
+	/**
+	 * Retorna o numero total de procedimentos ao qual um paciente foi submetido
+	 * */
+	public int getTotalProcedimento(String id) throws PacienteException {
+		Paciente paciente  = bancoPacientes.buscaPaciente(id);
+		return paciente.getProcedimentosSize();
+	}
+	/**
+	 * Realiza um procedimento de transplante de orgaos em determinado paciente
+	 * @param Procedimento a ser Realizado
+	 * @param Id do paciente que sera realizado o procedimento
+	 * @param Orgao a ser transplantado
+	 * @param medicamentos ultilizados no procedimento
+	 * @throws ControllerException
+	 * */
+	public void realizaProcedimento(String procedimento, String idPaciente, String orgao, String medicamentos) throws ControllerException {
+		Paciente paciente  = bancoPacientes.buscaPaciente(idPaciente);
+		util.verificaNomeOrgao(orgao);
+		util.verificaProcedimento(procedimento);
+		if (bancoOrgaos.buscaOrgao(orgao,paciente.AcessarInformacoes("tiposanguineo"))){
+			double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
+			double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
+			double precoTotal = precoMedicamentos + precoProcedimento;
+			paciente.armazenarGastos(precoTotal);
+		}else{
+			throw new OrgaoException("Banco nao possui o orgao especificado.");
+		};
 	}
 	
 	/**
@@ -432,7 +490,14 @@ public class Controller {
 			throw new ControllerException("Cargo invalido.");
 		}
 	}
-	
-	
+	/**
+	 * Verifica se o sistema ja foi liberado anteriormente
+	 * @throws ControllerException
+	 * */
+	private void verificaSistema() throws ControllerException{
+		if (sistemaLiberado == true){
+			throw new ControllerException("Sistema liberado anteriormente.");
+		}
+	}
 }
 

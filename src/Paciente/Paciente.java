@@ -2,6 +2,7 @@ package Paciente;
 
 public class Paciente implements Comparable<Paciente>{
 	Prontuario prontuario;
+	private double valorGasto;
 	
 	/**
 	 * Construtor de Paciente.
@@ -15,6 +16,7 @@ public class Paciente implements Comparable<Paciente>{
 	 */
 	public Paciente(String nome,String nascimento,double peso,String sexo,String genero,String tipoSanguineo,int id) {
 		prontuario = new Prontuario(nome,nascimento,peso,sexo,genero,tipoSanguineo,id);
+		valorGasto = 0;
 	}
 	
 	/**
@@ -51,7 +53,24 @@ public class Paciente implements Comparable<Paciente>{
 	public double getPeso(){
 		return prontuario.getPeso();
 	}
-	
+	/**
+	 * Modifica o peso do paciente
+	 * */
+	public void setPeso(double peso){
+		prontuario.setPeso(peso);
+	}
+	/**
+	 * Modifica o Genero do Paciente
+	 * */
+	public void setGenero(String genero){
+		prontuario.setGenero(genero);
+	}
+	/**
+	 * Armazena os gastos referentes a um procedimento
+	 * */
+	public void armazenarGastos(double gasto){
+		this.valorGasto = this.valorGasto + gasto;
+	}
 	/**
 	 * Recupera o id do paciente.
 	 * @return o id.
@@ -59,7 +78,13 @@ public class Paciente implements Comparable<Paciente>{
 	public int getID(){
 		return prontuario.getID();
 	}
-	
+	/**
+	 * Recupera o tamanho da lista de procedimentos do prontuario
+	 * @return Quantidade de procedimentos
+	 * */
+	public int getProcedimentosSize(){
+		return prontuario.getProcedimentosSize();
+	}
 	/**
 	 * Compara dois pacientes.
 	 * @param conta associa ao paciente 1.
@@ -104,6 +129,12 @@ public class Paciente implements Comparable<Paciente>{
 	public String toString() {
 		return "Paciente [Prontuario=" + prontuario + "]";
 	}
-
+	
+	/**
+	 * Registra o procedimento efetuado na lista de procedimentos do prontuario
+	 * */
+	public void registrarProcedimento(String procedimento){
+		prontuario.adicionarProcedimentoALista(procedimento);
+	}
 	
 }

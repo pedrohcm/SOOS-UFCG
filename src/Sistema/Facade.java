@@ -10,10 +10,16 @@ public class Facade {
 	public Facade() {
 		control = new Controller();
 	}
-
+	
+	// Caso 1
+	
+	/**
+	 * Inicia o Sistema
+	 * */
 	public void iniciaSistema() {
 
 	}
+	
 	/**
 	 * Libera Sistema
 	 * @param chave associa a chave
@@ -101,7 +107,7 @@ public class Facade {
 			throw new Exception("Erro ao atualizar funcionario. " + e.getMessage());}
 		}
 	
-	
+	// Caso  2 , 3 e 4
 	/**
 	 * Cadastra Paciente
 	 * @param nome associa ao nome
@@ -277,10 +283,13 @@ public class Facade {
 	public String getEstoqueFarmacia(String ordenacao) throws Exception {
 		try {
 			return control.getEstoqueFarmacia(ordenacao);
-		} catch (Exception e) {
+		} catch (ControllerException e) {
 			throw new Exception("Erro na consulta de medicamentos. " + e.getMessage());
 		}
 	}
+	
+	// Caso 5
+	
 	
 	/**
 	 * Cadastra um orgao no banco de Orgaos
@@ -291,7 +300,7 @@ public class Facade {
 	public void cadastraOrgao(String nome, String tipo) throws BancoOrgaosException {
 		try {
 			control.cadastraOrgao(nome, tipo);
-		} catch(Exception e) {
+		} catch(ControllerException e) {
 			throw new BancoOrgaosException(e.getMessage());
 		}
 	}
@@ -374,4 +383,58 @@ public class Facade {
 		}
 	}
 	
+	// Caso 6
+	
+	/**
+	 * Recupera o ID de um paciente pelo nome
+	 * @param Nome do paciente ao qual o id sera recuperado
+	 * @return String com o id
+	 * @throws Exception
+	 * */
+	public String getPacienteID(String nome) throws Exception{
+		try{
+			return control.getPacienteID(nome);
+		}catch(ControllerException e){
+			throw new Exception(e.getMessage());
+		}
+	}
+	/**
+	 * Realiza um determinado procedimento em um paciente
+	 * @param Procedimento a ser Realizado
+	 * @param Id do paciente que sera realizado o procedimento
+	 * @param medicamentos ultilizados no procedimento
+	 * @throws ControllerException
+	 * */
+	public void realizaProcedimento(String Procedimento , String idPaciente, String medicamentos) throws Exception{
+		try{
+			control.realizaProcedimento(Procedimento ,idPaciente ,medicamentos);
+		}catch(ControllerException e){
+			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
+		}
+	}
+	/**
+	 * Realiza um procedimento de transplante de orgaos em determinado paciente
+	 * @param Procedimento a ser Realizado
+	 * @param Id do paciente que sera realizado o procedimento
+	 * @param Orgao a ser transplantado
+	 * @param medicamentos ultilizados no procedimento
+	 * @throws Exception
+	 * */
+	public void realizaProcedimento(String Procedimento , String idPaciente,String orgao, String medicamentos) throws Exception{
+		try{
+			control.realizaProcedimento(Procedimento ,idPaciente,orgao ,medicamentos);
+		}catch(ControllerException e){
+			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
+		}
+	}
+	/**
+	 * Retorna o numero total de procedimentos ao qual um paciente foi submetido
+	 * */
+	public int getTotalProcedimento(String id) throws Exception{
+		try{
+			return control.getTotalProcedimento(id);
+		}catch(ControllerException e){
+				throw new Exception(e.getMessage());
+		}
+	}
 }

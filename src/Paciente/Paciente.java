@@ -89,14 +89,14 @@ public class Paciente implements Comparable<Paciente>{
 		return 	String.format(Locale.US,"%.2f",valorGasto);
 
 	}
-	
+
 	public void strategy(){
 		
-		if(cartao.getPontosCartao() >= 150 && cartao.getPontosCartao() <= 350){
+		if(cartao.getPontosCartao() >= 150 && cartao.getPontosCartao() < 350){
 			setCartao(new Master(cartao.getPontosCartao()));
 			
 		}
-		else if (cartao.getPontosCartao() > 350){
+		else if (cartao.getPontosCartao() >= 350){
 			setCartao(new Vip(cartao.getPontosCartao()));
 		}
 		

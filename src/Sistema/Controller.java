@@ -442,6 +442,7 @@ public class Controller {
 		double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
 		double precoTotal = precoMedicamentos + precoProcedimento;
 		paciente.armazenarGastos(precoTotal);
+		paciente.strategy();
 	}
 	
 	/**
@@ -481,10 +482,12 @@ public class Controller {
 	 */
 	public void realizaProcedimento(String procedimento, String idPaciente) throws PacienteException, ProcedimentoException{
 		if(usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO)){
-		Paciente paciente = bancoPacientes.buscaPaciente(idPaciente);
-		double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
-		util.verificaProcedimento(procedimento);
-		paciente.armazenarGastos(precoProcedimento);}
+			Paciente paciente = bancoPacientes.buscaPaciente(idPaciente);
+			double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
+			util.verificaProcedimento(procedimento);
+			paciente.armazenarGastos(precoProcedimento);
+			paciente.strategy();
+			}
 		else{
 			throw new ProcedimentoException("O funcionario " + usuarioLogado.getNome() + " nao tem permissao para realizar procedimentos.");
 		}

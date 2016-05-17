@@ -469,6 +469,7 @@ public class Controller {
 			double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
 			double precoTotal = precoMedicamentos + precoProcedimento;
 			paciente.armazenarGastos(precoTotal);
+			paciente.strategy();
 		}else{
 			throw new OrgaoException("Banco nao possui o orgao especificado.");
 		};

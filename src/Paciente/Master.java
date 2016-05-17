@@ -9,8 +9,7 @@ public class Master implements CartaoFidelidade{
 	}
 	@Override
 	public void adicionarPontos(int pontos) {
-		pontos = pontos + (int)(pontos * 0.05);
-
+		
 		totalPontos += pontos;
 		
 	}

@@ -136,7 +136,7 @@ public class BancoPacientes {
 	 */
 	public int getPontosFidelidade(String idPaciente) throws PacienteException{
 		Paciente paciente = buscaPaciente(idPaciente);
-		return paciente.getPontosCartao();
+		return paciente.getPontosCartaoFidelidade();
 		
 	}
 	/**

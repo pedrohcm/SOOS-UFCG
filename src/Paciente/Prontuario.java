@@ -15,8 +15,8 @@ public class Prontuario{
 	private String genero;
 	private int id;
 	private LinkedList<String> listadeprocedimentos;
-	private CartaoFidelidade cartaoFidelidade;
-	private final int CONSULTACLINICA = 50;
+	
+
 	
 	
 	
@@ -38,7 +38,6 @@ public class Prontuario{
 		this.sexo = sexo;
 		this.genero = genero;
 		this.id = id;
-		this.cartaoFidelidade = new Padrao(0);
 		
 		listadeprocedimentos = new LinkedList<String>();
 		
@@ -160,25 +159,9 @@ public class Prontuario{
 		return true;
 	}
 	
-	public void strategy(){
-		
-		if(cartaoFidelidade.getPontosCartao() >= 150 && cartaoFidelidade.getPontosCartao() <= 350){
-			setCartaoFidelidade(new Master(cartaoFidelidade.getPontosCartao()));
-			
-		}
-		else if (cartaoFidelidade.getPontosCartao() > 350){
-			setCartaoFidelidade(new Vip(cartaoFidelidade.getPontosCartao()));
-		}
-		
-	}
 	
-	public int getPontosCartaoFidelidade(){
-		return cartaoFidelidade.getPontosCartao();
-	}
-	private void setCartaoFidelidade(CartaoFidelidade cartaoFidelidade) {
-		this.cartaoFidelidade = cartaoFidelidade;
-		
-	}
+	
+	
 
 	@Override
 	public String toString() {
@@ -190,44 +173,11 @@ public class Prontuario{
 	 * @throws ProcedimentoException 
 	 * */
 	public void adicionarProcedimentoALista(String procedimento) throws ProcedimentoException{
-		adicionaPontosCartao(procedimento);
+		
 		listadeprocedimentos.add(procedimento);
-		strategy();
 
 	}
-	/**
-	 * Calcula Desconto
-	 */
-	
-	public double calculaDesconto(double preco){
-		return cartaoFidelidade.aplicarDesconto(preco);
-	}
-	
-	/**
-	 * Adiciona pontos no cartao fidelidade
-	 * @throws ProcedimentoException 
-	 */
-	
-	public void adicionaPontosCartao(String procedimento) throws ProcedimentoException{
 		
-		if(procedimento.equalsIgnoreCase("Consulta clinica")){
-			cartaoFidelidade.adicionarPontos(CONSULTACLINICA);
-		}
-		else if(procedimento.equalsIgnoreCase("Cirurgia bariatrica")){
-			cartaoFidelidade.adicionarPontos(100);
-		}
-		else if(procedimento.equalsIgnoreCase("Redesignacao sexual")){
-			cartaoFidelidade.adicionarPontos(130);
-
-		}
-		else if(procedimento.equalsIgnoreCase("Transplante de orgaos")){
-			cartaoFidelidade.adicionarPontos(160);
-		}
-		
-		else{
-			throw new ProcedimentoException(procedimento);
-		}
-	}
 	/**
 	 * Modifica o peso do paciente
 	 * */

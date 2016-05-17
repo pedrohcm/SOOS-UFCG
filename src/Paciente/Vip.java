@@ -9,7 +9,6 @@ public class Vip implements CartaoFidelidade{
 	}
 	@Override
 	public void adicionarPontos(int pontos) {
-		pontos = pontos + (int)(pontos * 0.1);
 		this.totalPontos += pontos;
 		
 	}

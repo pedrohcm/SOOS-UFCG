@@ -8,6 +8,8 @@ import Exceptions.ProcedimentoException;
 public class Paciente implements Comparable<Paciente>{
 	Prontuario prontuario;
 	private double valorGasto;
+	private CartaoFidelidade cartao;
+	private final int CONSULTACLINICA = 50;
 	
 	/**
 	 * Construtor de Paciente.
@@ -22,6 +24,7 @@ public class Paciente implements Comparable<Paciente>{
 	public Paciente(String nome,String nascimento,double peso,String sexo,String genero,String tipoSanguineo,int id) {
 		prontuario = new Prontuario(nome,nascimento,peso,sexo,genero,tipoSanguineo,id);
 		valorGasto = 0;
+		cartao = new Padrao(0);
 	}
 	
 	/**
@@ -74,7 +77,7 @@ public class Paciente implements Comparable<Paciente>{
 	 * Armazena os gastos referentes a um procedimento
 	 * */
 	public void armazenarGastos(double gasto){
-		
+		gasto = calculaDesconto(gasto);
 		this.valorGasto = this.valorGasto + gasto;
 	}
 	
@@ -85,6 +88,53 @@ public class Paciente implements Comparable<Paciente>{
 		
 		return 	String.format(Locale.US,"%.2f",valorGasto);
 
+	}
+	
+	public void strategy(){
+		
+		if(cartao.getPontosCartao() >= 150 && cartao.getPontosCartao() <= 350){
+			setCartao(new Master(cartao.getPontosCartao()));
+			
+		}
+		else if (cartao.getPontosCartao() > 350){
+			setCartao(new Vip(cartao.getPontosCartao()));
+		}
+		
+	}
+	
+	private void setCartao(CartaoFidelidade cartaoFidelidade) {
+		this.cartao = cartaoFidelidade;
+		
+	}
+	
+	/**
+	 * Adiciona pontos no cartao fidelidade
+	 * @throws ProcedimentoException 
+	 */
+	
+	public void adicionaPontosCartao(String procedimento) throws ProcedimentoException{
+		
+		if(procedimento.equalsIgnoreCase("Consulta clinica")){
+			cartao.adicionarPontos(CONSULTACLINICA);
+		}
+		else if(procedimento.equalsIgnoreCase("Cirurgia bariatrica")){
+			cartao.adicionarPontos(100);
+		}
+		else if(procedimento.equalsIgnoreCase("Redesignacao sexual")){
+			cartao.adicionarPontos(130);
+
+		}
+		else if(procedimento.equalsIgnoreCase("Transplante de orgaos")){
+			cartao.adicionarPontos(160);
+		}
+		
+		else{
+			throw new ProcedimentoException(procedimento);
+		}
+	}
+	
+	public int getPontosCartaoFidelidade(){
+		return cartao.getPontosCartao();
 	}
 	/**
 	 * Recupera o id do paciente.
@@ -150,17 +200,19 @@ public class Paciente implements Comparable<Paciente>{
 	 * @throws ProcedimentoException 
 	 * */
 	public void registrarProcedimento(String procedimento) throws ProcedimentoException{
+		adicionaPontosCartao(procedimento);
 		prontuario.adicionarProcedimentoALista(procedimento);
 	}
 	
+	
+	
 	/**
-	 * Recupera os pontos do cartao fidelidade
+	 * Calcula Desconto
 	 */
 	
-	public int getPontosCartao(){
-		return prontuario.getPontosCartaoFidelidade();
+	public double calculaDesconto(double preco){
+		return cartao.aplicarDesconto(preco);
 	}
-	
 	
 }
 

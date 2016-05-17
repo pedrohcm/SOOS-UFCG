@@ -2,19 +2,8 @@ package Sistema;
 
 
 
-/**
- * Raquel Rufino
- * Ionesio Junior
- * Pedro Maia
- */
-
-import Exceptions.ControllerException;
-import Exceptions.DataInvalidaException;
-import Exceptions.FuncionarioException;
-import Exceptions.MedicamentoException;
-import Exceptions.OrgaoException;
-import Exceptions.PacienteException;
 import Funcionarios.BancoFuncionarios;
+
 import Funcionarios.Funcionario;
 import Funcionarios.Permissoes;
 import Medicamentos.Farmacia;
@@ -22,6 +11,13 @@ import Orgaos.BancoOrgaos;
 import Paciente.BancoPacientes;
 import Paciente.Paciente;
 import Procedimentos.GerenciadorDeProcedimentos;
+import Exceptions.ControllerException;
+import Exceptions.DataInvalidaException;
+import Exceptions.FuncionarioException;
+import Exceptions.MedicamentoException;
+import Exceptions.OrgaoException;
+import Exceptions.PacienteException;
+import Exceptions.ProcedimentoException;
 
 
 
@@ -446,6 +442,7 @@ public class Controller {
 		double precoTotal = precoMedicamentos + precoProcedimento;
 		paciente.armazenarGastos(precoTotal);
 	}
+	
 	/**
 	 * Retorna o numero total de procedimentos ao qual um paciente foi submetido
 	 * */
@@ -474,7 +471,16 @@ public class Controller {
 			throw new OrgaoException("Banco nao possui o orgao especificado.");
 		};
 	}
-	
+	/**
+	 * Realiza um procedimento
+	 * @throws PacienteException 
+	 * @throws ProcedimentoException 
+	 */
+	public void realizaProcedimento(String procedimento, String idPaciente) throws PacienteException, ProcedimentoException{
+		Paciente paciente = bancoPacientes.buscaPaciente(idPaciente);
+		util.verificaProcedimento(procedimento);
+		paciente.registrarProcedimento(procedimento);
+	}
 	/**
 	 * Verifica se o cargo eh valido para criacao de um novo funcionario
 	 * @throws ControllerException
@@ -498,6 +504,24 @@ public class Controller {
 		if (sistemaLiberado == true){
 			throw new ControllerException("Sistema liberado anteriormente.");
 		}
+	}
+	/**
+	 * Recupera os pontos do cartao fidelidade
+	 * @param posicao associa a posicao do paciente
+	 * @return
+	 * @throws PacienteException
+	 */
+	public int getPontosFidelidade(int idPosicao) throws PacienteException{
+		return bancoPacientes.getPontosFidelidade(idPosicao);
+	}
+	
+	/**
+	 * Recupera todos os gastos do paciente
+	 * @throws PacienteException 
+	 */
+	public double getGastos(int posicao) throws PacienteException{
+		Paciente paciente = bancoPacientes.getPaciente(posicao);
+		return paciente.getValorGasto();
 	}
 }
 

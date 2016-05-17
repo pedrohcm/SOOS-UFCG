@@ -1,6 +1,7 @@
 package Sistema;
 
 import Exceptions.BancoOrgaosException;
+
 import Exceptions.ControllerException;
 import Exceptions.OrgaoException;
 
@@ -427,6 +428,7 @@ public class Facade {
 			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Retorna o numero total de procedimentos ao qual um paciente foi submetido
 	 * */
@@ -435,6 +437,47 @@ public class Facade {
 			return control.getTotalProcedimento(id);
 		}catch(ControllerException e){
 				throw new Exception(e.getMessage());
+		}
+	}
+	
+	// Caso 7 
+	/**
+	 * Retorna o numero total de pontos fidelidade
+	 * @return
+	 * @throws Exception 
+	 */
+	public int getPontosFidelidade(int  idPaciente) throws Exception{
+		try{
+			System.out.println(control.getPontosFidelidade(idPaciente));
+			return control.getPontosFidelidade(idPaciente);
+		}catch(ControllerException e){
+				throw new Exception(e.getMessage());
+		}
+	}
+
+	/**
+	 * Realiza um procedimento de transplante de orgaos em determinado paciente
+	 * @param Procedimento a ser Realizado
+	 * @param Id do paciente que sera realizado o procedimento
+	 * @throws Exception
+	 * */
+	public void realizaProcedimento(String Procedimento , String idPaciente) throws Exception{
+		try{
+			control.realizaProcedimento(Procedimento ,idPaciente);
+		}catch(ControllerException e){
+			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
+		}
+	}
+	/**
+	 * Retorna o numero total de pontos fidelidade
+	 * @return 
+	 * @throws Exception 
+	 */
+	public double getGastosPaciente(int posicao) throws Exception {
+		try{
+			return control.getGastos(posicao);
+		}catch(ControllerException e){
+			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
 		}
 	}
 }

@@ -2,8 +2,9 @@ package Orgaos;
 
 import java.util.ArrayList;
 
-import Exceptions.OrgaoException;
+
 import Factory.OrgaoFactory;
+import Exceptions.OrgaoException;
 
 public class BancoOrgaos {
 	private ArrayList<Orgao> orgaos;

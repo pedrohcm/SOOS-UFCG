@@ -2,6 +2,7 @@ package Teste;
 
 import java.util.ArrayList;
 
+
 import Sistema.Facade;
 import easyaccept.EasyAcceptFacade;
 
@@ -20,7 +21,9 @@ public class UserCaseTest {
 		list.add("Usercase/usecase_7.txt");
 		
 		Facade fachada = new Facade();
-		
+		 
+
+			
 		
 		EasyAcceptFacade testefachada = new EasyAcceptFacade(fachada , list);
 		

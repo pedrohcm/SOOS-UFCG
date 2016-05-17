@@ -2,6 +2,7 @@ package Funcionarios;
 
 import java.util.HashSet;
 
+
 import Exceptions.FuncionarioException;
 
 public abstract class Funcionario {

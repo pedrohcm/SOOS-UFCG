@@ -1,8 +1,9 @@
 package Factory;
 
+import Paciente.Paciente;
+
 import Exceptions.DataInvalidaException;
 import Exceptions.PacienteException;
-import Paciente.Paciente;
 
 public class PacienteFactory {
 	private int ID;

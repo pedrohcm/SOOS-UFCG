@@ -2,13 +2,14 @@ package Teste;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
-import Exceptions.DataInvalidaException;
-import Exceptions.FuncionarioException;
 import Funcionarios.BancoFuncionarios;
 import Funcionarios.Diretor;
+import Exceptions.DataInvalidaException;
+import Exceptions.FuncionarioException;
 
 public class BancoFuncionariosTest {
 

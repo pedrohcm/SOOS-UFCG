@@ -2,6 +2,7 @@ package Funcionarios;
 
 import java.util.HashSet;
 
+
 import Exceptions.FuncionarioException;
 
 public class Tecnico extends Funcionario {
@@ -20,7 +21,7 @@ public class Tecnico extends Funcionario {
 	}
 
 	/**
-	 * Na especificação do problema o tecnico tem permissao para cadastro de pacientes e medicamentos
+	 * Na especificaï¿½ï¿½o do problema o tecnico tem permissao para cadastro de pacientes e medicamentos
 	 * */
 	@Override
 	protected void definirPermissoes() {

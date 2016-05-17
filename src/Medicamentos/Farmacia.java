@@ -1,12 +1,13 @@
 package Medicamentos;
 
 import java.util.Collections;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 
+import Factory.MedicamentoFactory;
 import Exceptions.ControllerException;
 import Exceptions.MedicamentoException;
-import Factory.MedicamentoFactory;
 
 public class Farmacia {
 	private LinkedList<Medicamento> listaMedicamentos;

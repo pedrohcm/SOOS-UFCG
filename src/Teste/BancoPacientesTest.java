@@ -2,13 +2,14 @@ package Teste;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
-import Exceptions.DataInvalidaException;
-import Exceptions.PacienteException;
 import Paciente.BancoPacientes;
 import Paciente.Paciente;
+import Exceptions.DataInvalidaException;
+import Exceptions.PacienteException;
 
 public class BancoPacientesTest {
 

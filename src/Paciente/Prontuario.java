@@ -1,6 +1,7 @@
 package Paciente;
 
 import java.time.LocalDate;
+
 import java.util.LinkedList;
 
 
@@ -13,6 +14,10 @@ public class Prontuario{
 	private String genero;
 	private int id;
 	private LinkedList<String> listadeprocedimentos;
+	private CartaoFidelidade cartaoFidelidade;
+	
+	
+	
 	/**
 	 * Construtor de Prontuario
 	 * @param nome associa ao nome
@@ -31,7 +36,10 @@ public class Prontuario{
 		this.sexo = sexo;
 		this.genero = genero;
 		this.id = id;
+		this.cartaoFidelidade = new Padrao(0);
+		
 		listadeprocedimentos = new LinkedList<String>();
+		
 	}
 	
 	/**
@@ -149,6 +157,26 @@ public class Prontuario{
 			return false;
 		return true;
 	}
+	
+	public void strategy(){
+		
+		if(cartaoFidelidade.getPontosCartao() >= 150 && cartaoFidelidade.getPontosCartao() <= 350){
+			setCartaoFidelidade(new Master(cartaoFidelidade.getPontosCartao()));
+			
+		}
+		else if (cartaoFidelidade.getPontosCartao() > 350){
+			setCartaoFidelidade(new Vip(cartaoFidelidade.getPontosCartao()));
+		}
+		
+	}
+	
+	public int getPontosCartaoFidelidade(){
+		return cartaoFidelidade.getPontosCartao();
+	}
+	private void setCartaoFidelidade(CartaoFidelidade cartaoFidelidade) {
+		this.cartaoFidelidade = cartaoFidelidade;
+		
+	}
 
 	@Override
 	public String toString() {
@@ -159,7 +187,37 @@ public class Prontuario{
 	 * Adiciona o procedimento efetuado na lista de procedimentos do prontuario
 	 * */
 	public void adicionarProcedimentoALista(String procedimento){
+		
 		listadeprocedimentos.add(procedimento);
+	}
+	/**
+	 * Calcula Desconto
+	 */
+	
+	public double calculaDesconto(double preco){
+		return cartaoFidelidade.aplicarDesconto(preco);
+	}
+	
+	/**
+	 * Adiciona pontos no cartao fidelidade
+	 */
+	
+	public void adicionaPontosCartao(String procedimento){
+		if(procedimento.equalsIgnoreCase("Consulta clinica")){
+			cartaoFidelidade.adicionarPontos(50);
+		}
+		else if(procedimento.equalsIgnoreCase("Cirurgia bariatrica")){
+			cartaoFidelidade.adicionarPontos(100);
+		}
+		else if(procedimento.equalsIgnoreCase("redesignacao sexual")){
+			cartaoFidelidade.adicionarPontos(130);
+
+		}
+		else if(procedimento.equalsIgnoreCase("Transplante de orgaos")){
+			cartaoFidelidade.adicionarPontos(160);
+		}
+		
+		strategy();
 	}
 	/**
 	 * Modifica o peso do paciente

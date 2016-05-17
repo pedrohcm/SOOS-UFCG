@@ -69,7 +69,15 @@ public class Paciente implements Comparable<Paciente>{
 	 * Armazena os gastos referentes a um procedimento
 	 * */
 	public void armazenarGastos(double gasto){
+		gasto = prontuario.calculaDesconto(gasto);
 		this.valorGasto = this.valorGasto + gasto;
+	}
+	
+	/**
+	 * Recupera todos os gastos
+	 */
+	public double getValorGasto(){
+		return valorGasto;
 	}
 	/**
 	 * Recupera o id do paciente.
@@ -137,4 +145,14 @@ public class Paciente implements Comparable<Paciente>{
 		prontuario.adicionarProcedimentoALista(procedimento);
 	}
 	
+	/**
+	 * Recupera os pontos do cartao fidelidade
+	 */
+	
+	public int getPontosCartao(){
+		return prontuario.getPontosCartaoFidelidade();
+	}
+	
+	
 }
+

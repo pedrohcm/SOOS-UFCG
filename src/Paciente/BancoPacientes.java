@@ -1,12 +1,13 @@
 package Paciente;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 
+import Factory.PacienteFactory;
 import Exceptions.ControllerException;
 import Exceptions.DataInvalidaException;
 import Exceptions.PacienteException;
-import Factory.PacienteFactory;
 
 public class BancoPacientes {
 	private ArrayList<Paciente> pacientes;
@@ -130,6 +131,15 @@ public class BancoPacientes {
 	}
 	
 	/**
+	 * Recupera o total de pontos do cartao fidelidade
+	 * @throws PacienteException 
+	 */
+	public int getPontosFidelidade(int idPosicao) throws PacienteException{
+		Paciente paciente = getPaciente(idPosicao);
+		return paciente.getPontosCartao();
+		
+	}
+	/**
 	 * Recupera o paciente com a posicao recebida 
 	 * @param posicao posicao do paciente na colecao
 	 * @return o paciente
@@ -208,7 +218,7 @@ public class BancoPacientes {
 		return "BancoPacientes [pacientes=" + pacientes + "]";
 	}
 	/**
-	 * Verifica se a ID de um paciente é vazia
+	 * Verifica se a ID de um paciente ï¿½ vazia
 	 * */
 	private  void verificaID(String id ) throws PacienteException{
 		if (id.equals("") || id.equals(" ")){

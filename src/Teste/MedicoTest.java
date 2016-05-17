@@ -1,13 +1,10 @@
 package Teste;
 
 import static org.junit.Assert.*;
-
-
+import Funcionarios.Medico;
 import org.junit.Test;
 
 import Exceptions.FuncionarioException;
-
-import Funcionarios.Medico;
 
 
 public class MedicoTest {

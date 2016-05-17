@@ -3,10 +3,11 @@ package Teste;
 import static org.junit.Assert.*;
 
 
+
 import org.junit.Test;
 
-import Exceptions.FuncionarioException;
 import Funcionarios.Tecnico;
+import Exceptions.FuncionarioException;
 
 
 public class TecnicoTest {

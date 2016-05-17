@@ -1,5 +1,7 @@
 package Sistema;
 
+import Funcionarios.Funcionario;
+
 import Exceptions.ControllerException;
 import Exceptions.DataInvalidaException;
 import Exceptions.MedicamentoException;
@@ -7,7 +9,6 @@ import Exceptions.OrgaoException;
 import Exceptions.PacienteException;
 import Exceptions.ProcedimentoException;
 import Exceptions.TipoSanguineoException;
-import Funcionarios.Funcionario;
 
 public class Util {
 
@@ -104,7 +105,7 @@ public class Util {
 		}
 	}
 	/**
-	 * Verifica se o nome do orgao nao é vazio
+	 * Verifica se o nome do orgao nao ï¿½ vazio
 	 * @param orgao
 	 * @throws OrgaoException caso o nome do orgao seja vazio
 	 * */
@@ -306,13 +307,14 @@ public class Util {
 		}
 	}
 	/**
-	 * Verifica se o procedimento requisitado é um procedimento valido
+	 * Verifica se o procedimento requisitado e um procedimento valido
 	 * @param Procedimento requisitado
 	 * @throws ProcedimentoException Caso seja um procedimento invalido
 	 * */
 	public void verificaProcedimento(String procedimento) throws ProcedimentoException {
 		procedimento = procedimento.toLowerCase();
-		if(!procedimento.equals("consulta clinica") && !procedimento.equals("cirurgia bariatrica") && !procedimento.equals("redesignacao sexual") && !procedimento.equals("transplante de orgaos")){
+		if(!procedimento.equalsIgnoreCase("consulta clinica") && !procedimento.equalsIgnoreCase("cirurgia bariatrica") && !procedimento.equalsIgnoreCase("redesignacao sexual") && 
+			!procedimento.equalsIgnoreCase("transplante de orgaos")){
 			throw new ProcedimentoException("Procedimento invalido.");
 		}
 	}

@@ -2,12 +2,13 @@ package Teste;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
-import Exceptions.FuncionarioException;
 import Funcionarios.Diretor;
 import Paciente.Prontuario;
+import Exceptions.FuncionarioException;
 
 public class DiretorTest {
 

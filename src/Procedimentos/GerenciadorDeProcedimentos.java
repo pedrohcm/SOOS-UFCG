@@ -20,7 +20,7 @@ public class GerenciadorDeProcedimentos {
 	}
 	
 	/**
-	 * Define qual o procedimento será realizado
+	 * Define qual o procedimento sera realizado
 	 * @param procedimento String indicando o procedimento
 	 * */
 	private void definirProcedimento(String procedimento){

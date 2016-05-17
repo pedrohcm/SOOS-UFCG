@@ -436,6 +436,7 @@ public class Controller {
 	 * @throws ControllerException
 	 * */
 	public void realizaProcedimento(String procedimento, String idPaciente, String medicamentos) throws ControllerException {
+		usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO);
 		Paciente paciente  = bancoPacientes.buscaPaciente(idPaciente);
 		double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
 		double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
@@ -459,6 +460,7 @@ public class Controller {
 	 * @throws ControllerException
 	 * */
 	public void realizaProcedimento(String procedimento, String idPaciente, String orgao, String medicamentos) throws ControllerException {
+		usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO);
 		Paciente paciente  = bancoPacientes.buscaPaciente(idPaciente);
 		util.verificaNomeOrgao(orgao);
 		util.verificaProcedimento(procedimento);
@@ -477,9 +479,14 @@ public class Controller {
 	 * @throws ProcedimentoException 
 	 */
 	public void realizaProcedimento(String procedimento, String idPaciente) throws PacienteException, ProcedimentoException{
+		if(usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO)){
 		Paciente paciente = bancoPacientes.buscaPaciente(idPaciente);
+		double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
 		util.verificaProcedimento(procedimento);
-		paciente.registrarProcedimento(procedimento);
+		paciente.armazenarGastos(precoProcedimento);}
+		else{
+			throw new ProcedimentoException("O funcionario " + usuarioLogado.getNome() + " nao tem permissao para realizar procedimentos.");
+		}
 	}
 	/**
 	 * Verifica se o cargo eh valido para criacao de um novo funcionario
@@ -511,16 +518,16 @@ public class Controller {
 	 * @return
 	 * @throws PacienteException
 	 */
-	public int getPontosFidelidade(int idPosicao) throws PacienteException{
-		return bancoPacientes.getPontosFidelidade(idPosicao);
+	public int getPontosFidelidade(String idPaciente) throws PacienteException{
+		return bancoPacientes.getPontosFidelidade(idPaciente);
 	}
 	
 	/**
 	 * Recupera todos os gastos do paciente
 	 * @throws PacienteException 
 	 */
-	public double getGastos(int posicao) throws PacienteException{
-		Paciente paciente = bancoPacientes.getPaciente(posicao);
+	public String getGastos(String idPaciente) throws PacienteException{
+		Paciente paciente = bancoPacientes.buscaPaciente(idPaciente);
 		return paciente.getValorGasto();
 	}
 }

@@ -1,5 +1,10 @@
 package Paciente;
 
+import java.util.Locale;
+
+import Exceptions.ProcedimentoException;
+
+
 public class Paciente implements Comparable<Paciente>{
 	Prontuario prontuario;
 	private double valorGasto;
@@ -69,15 +74,17 @@ public class Paciente implements Comparable<Paciente>{
 	 * Armazena os gastos referentes a um procedimento
 	 * */
 	public void armazenarGastos(double gasto){
-		gasto = prontuario.calculaDesconto(gasto);
+		
 		this.valorGasto = this.valorGasto + gasto;
 	}
 	
 	/**
 	 * Recupera todos os gastos
 	 */
-	public double getValorGasto(){
-		return valorGasto;
+	public String getValorGasto(){
+		
+		return 	String.format(Locale.US,"%.2f",valorGasto);
+
 	}
 	/**
 	 * Recupera o id do paciente.
@@ -140,8 +147,9 @@ public class Paciente implements Comparable<Paciente>{
 	
 	/**
 	 * Registra o procedimento efetuado na lista de procedimentos do prontuario
+	 * @throws ProcedimentoException 
 	 * */
-	public void registrarProcedimento(String procedimento){
+	public void registrarProcedimento(String procedimento) throws ProcedimentoException{
 		prontuario.adicionarProcedimentoALista(procedimento);
 	}
 	

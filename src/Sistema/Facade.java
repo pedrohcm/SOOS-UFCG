@@ -446,9 +446,9 @@ public class Facade {
 	 * @return
 	 * @throws Exception 
 	 */
-	public int getPontosFidelidade(int  idPaciente) throws Exception{
+	public int getPontosFidelidade(String idPaciente) throws Exception{
 		try{
-			System.out.println(control.getPontosFidelidade(idPaciente));
+			
 			return control.getPontosFidelidade(idPaciente);
 		}catch(ControllerException e){
 				throw new Exception(e.getMessage());
@@ -473,9 +473,9 @@ public class Facade {
 	 * @return 
 	 * @throws Exception 
 	 */
-	public double getGastosPaciente(int posicao) throws Exception {
+	public String getGastosPaciente(String idPaciente) throws Exception {
 		try{
-			return control.getGastos(posicao);
+			return control.getGastos(idPaciente);
 		}catch(ControllerException e){
 			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
 		}

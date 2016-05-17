@@ -24,6 +24,7 @@ public class Medico extends Funcionario {
 	public void definirPermissoes() {
 		HashSet<Permissoes> permissoesConcedidas = this.getPermissoes();
 		permissoesConcedidas.add(Permissoes.CADASTRAORGAO);
+		permissoesConcedidas.add(Permissoes.REALIZAPROCEDIMENTO);
 		this.setPermissoes(permissoesConcedidas);	
 	}
 

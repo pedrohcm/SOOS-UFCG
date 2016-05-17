@@ -17,7 +17,7 @@ public class Master implements CartaoFidelidade{
 
 	@Override
 	public double aplicarDesconto(double preco) {
-		preco = preco - (preco * 0.2);
+		preco = preco - (preco * 0.15);
 		return preco;
 		
 	}

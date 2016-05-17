@@ -1,6 +1,7 @@
 package Procedimentos;
 
 
+import Exceptions.ProcedimentoException;
 import Paciente.Paciente;
 /**
  * Classe responsavel por gerenciar os procedimentos
@@ -12,8 +13,9 @@ public class GerenciadorDeProcedimentos {
 	 * @param procedimento Tipo de procedimento a ser realizado
 	 * @param paciente Paciente que sera submentido ao procedimento
 	 * @return custoDoProcedimento valor cobrado pelo procedimento requisitado
+	 * @throws ProcedimentoException 
 	 * */
-	public double realizarProcedimento(String procedimento , Paciente paciente){
+	public double realizarProcedimento(String procedimento , Paciente paciente) throws ProcedimentoException{
 		definirProcedimento(procedimento);
 		double custoDoProcedimento = tipoDeProcedimento.realizarProcedimento(paciente);
 		return custoDoProcedimento;

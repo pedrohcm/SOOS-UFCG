@@ -16,7 +16,7 @@ public class Vip implements CartaoFidelidade{
 
 	@Override
 	public double aplicarDesconto(double preco) {
-		preco = preco - (preco * 0.4);
+		preco = preco - (preco * 0.3);
 		return preco;
 		
 	}

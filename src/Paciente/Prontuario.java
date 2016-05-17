@@ -1,8 +1,9 @@
 package Paciente;
 
 import java.time.LocalDate;
-
 import java.util.LinkedList;
+
+import Exceptions.ProcedimentoException;
 
 
 public class Prontuario{
@@ -15,6 +16,7 @@ public class Prontuario{
 	private int id;
 	private LinkedList<String> listadeprocedimentos;
 	private CartaoFidelidade cartaoFidelidade;
+	private final int CONSULTACLINICA = 50;
 	
 	
 	
@@ -185,10 +187,13 @@ public class Prontuario{
 	}
 	/**
 	 * Adiciona o procedimento efetuado na lista de procedimentos do prontuario
+	 * @throws ProcedimentoException 
 	 * */
-	public void adicionarProcedimentoALista(String procedimento){
-		
+	public void adicionarProcedimentoALista(String procedimento) throws ProcedimentoException{
+		adicionaPontosCartao(procedimento);
 		listadeprocedimentos.add(procedimento);
+		strategy();
+
 	}
 	/**
 	 * Calcula Desconto
@@ -200,16 +205,18 @@ public class Prontuario{
 	
 	/**
 	 * Adiciona pontos no cartao fidelidade
+	 * @throws ProcedimentoException 
 	 */
 	
-	public void adicionaPontosCartao(String procedimento){
+	public void adicionaPontosCartao(String procedimento) throws ProcedimentoException{
+		
 		if(procedimento.equalsIgnoreCase("Consulta clinica")){
-			cartaoFidelidade.adicionarPontos(50);
+			cartaoFidelidade.adicionarPontos(CONSULTACLINICA);
 		}
 		else if(procedimento.equalsIgnoreCase("Cirurgia bariatrica")){
 			cartaoFidelidade.adicionarPontos(100);
 		}
-		else if(procedimento.equalsIgnoreCase("redesignacao sexual")){
+		else if(procedimento.equalsIgnoreCase("Redesignacao sexual")){
 			cartaoFidelidade.adicionarPontos(130);
 
 		}
@@ -217,7 +224,9 @@ public class Prontuario{
 			cartaoFidelidade.adicionarPontos(160);
 		}
 		
-		strategy();
+		else{
+			throw new ProcedimentoException(procedimento);
+		}
 	}
 	/**
 	 * Modifica o peso do paciente

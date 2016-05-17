@@ -134,8 +134,8 @@ public class BancoPacientes {
 	 * Recupera o total de pontos do cartao fidelidade
 	 * @throws PacienteException 
 	 */
-	public int getPontosFidelidade(int idPosicao) throws PacienteException{
-		Paciente paciente = getPaciente(idPosicao);
+	public int getPontosFidelidade(String idPaciente) throws PacienteException{
+		Paciente paciente = buscaPaciente(idPaciente);
 		return paciente.getPontosCartao();
 		
 	}
@@ -218,7 +218,7 @@ public class BancoPacientes {
 		return "BancoPacientes [pacientes=" + pacientes + "]";
 	}
 	/**
-	 * Verifica se a ID de um paciente � vazia
+	 * Verifica se a ID de um paciente e vazia
 	 * */
 	private  void verificaID(String id ) throws PacienteException{
 		if (id.equals("") || id.equals(" ")){

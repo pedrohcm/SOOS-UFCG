@@ -1,9 +1,16 @@
 package Factory;
 
+import java.io.Serializable;
+
 import Medicamentos.Medicamento;
 import Medicamentos.MedicamentoReferencia;
 
-public class MedicamentoFactory {
+public class MedicamentoFactory implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Construtor
 	 */

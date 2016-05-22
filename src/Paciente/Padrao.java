@@ -1,7 +1,13 @@
 package Paciente;
 
-public class Padrao implements CartaoFidelidade{
+import java.io.Serializable;
+
+public class Padrao implements CartaoFidelidade, Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int totalPontos;
 	public Padrao(int totalPontos)
 	{	

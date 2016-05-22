@@ -2,10 +2,16 @@ package Factory;
 
 import Paciente.Paciente;
 
+import java.io.Serializable;
+
 import Exceptions.DataInvalidaException;
 import Exceptions.PacienteException;
 
-public class PacienteFactory {
+public class PacienteFactory implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int ID;
 	/**
 	 * Construtor

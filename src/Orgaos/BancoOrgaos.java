@@ -1,12 +1,17 @@
 package Orgaos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 import Factory.OrgaoFactory;
 import Exceptions.OrgaoException;
 
-public class BancoOrgaos {
+public class BancoOrgaos implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Orgao> orgaos;
 	private OrgaoFactory factoryOrgaos;
 	

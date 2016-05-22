@@ -1,17 +1,25 @@
 package Paciente;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.Collections;
 
 import Factory.PacienteFactory;
+import Procedimentos.GerenciadorDeProcedimentos;
 import Exceptions.ControllerException;
 import Exceptions.DataInvalidaException;
 import Exceptions.PacienteException;
+import Exceptions.ProcedimentoException;
 
-public class BancoPacientes {
+public class BancoPacientes implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Paciente> pacientes;
 	private PacienteFactory factoryPacientes;
+	private GerenciadorDeProcedimentos gerenciaDeProcedimentos;
 	
 	/**
 	 * Construtor de BancoPacientes, criando a colecao e instanciando o PacienteFactory.
@@ -19,6 +27,7 @@ public class BancoPacientes {
 	public BancoPacientes() {
 		pacientes = new ArrayList<Paciente>();
 		factoryPacientes = new PacienteFactory();
+		gerenciaDeProcedimentos = new GerenciadorDeProcedimentos();
 	}
 	
 	/**
@@ -92,7 +101,7 @@ public class BancoPacientes {
 	 * @throws PacienteException 
 	 */
 	public Paciente buscaPaciente(String id) throws PacienteException{
-		verificaID(id);
+		verificaPacienteID(id);
 		for (Paciente paciente : pacientes){
 			String ID = String.format("%d",paciente.getID());
 			if (ID.equals(id)){
@@ -101,7 +110,40 @@ public class BancoPacientes {
 		}
 		return null;
 	}
+	/**
+	 * Realiza um determinado procedimento em um paciente
+	 * @param Procedimento a ser Realizado
+	 * @param Id do paciente que sera realizado o procedimento
+	 * @param custoMedicamentos Custo dos medicamentos ultilizados no procedimento
+	 * @throws ProcedimentoException Caso nao exista esse procedimento
+	 * @throws PacienteException caso o id seja invalido
+	 * */
+	public void realizaProcedimento(String procedimento,String idPaciente,double custoMedicamentos) throws ProcedimentoException, PacienteException{
+		Paciente paciente = buscaPaciente(idPaciente);
+		double custoProcedimento = gerenciaDeProcedimentos.realizarProcedimento(procedimento, paciente);
+		double custoTotal = custoMedicamentos + custoProcedimento;
+		paciente.armazenarGastos(custoTotal);
+		paciente.strategy();
+	}
 	
+	public void realizaProcedimento(String procedimento, String idPaciente, String orgao){
+		
+	}
+	
+	/**
+	 * Recupera o ID de um paciente pelo nome
+	 * @param Nome do paciente ao qual o id sera recuperado
+	 * @return String com o id
+	 * @throws PacienteException caso o Paciente nao seja encontrado
+	 * */
+	public String getPacienteID(String nome) throws PacienteException{
+		Paciente paciente = getPaciente(nome);
+		if(paciente == null){
+			throw new PacienteException("Paciente nao cadastrado.");
+		}
+		String idString = String.format("%d", paciente.getID());
+		return idString;
+	}
 	/**
 	 * Recupera um paciente com o nome recebido
 	 * @param nome nome do paciente a ser recuperado
@@ -220,7 +262,7 @@ public class BancoPacientes {
 	/**
 	 * Verifica se a ID de um paciente e vazia
 	 * */
-	private  void verificaID(String id ) throws PacienteException{
+	public  void verificaPacienteID(String id ) throws PacienteException{
 		if (id.equals("") || id.equals(" ")){
 			throw new PacienteException("ID do paciente nao pode ser vazio.");
 		}

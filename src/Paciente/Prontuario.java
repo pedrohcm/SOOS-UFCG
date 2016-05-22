@@ -1,12 +1,17 @@
 package Paciente;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 import Exceptions.ProcedimentoException;
 
 
-public class Prontuario{
+public class Prontuario implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String nascimento;
 	private double peso;
@@ -197,4 +202,5 @@ public class Prontuario{
 	public int getProcedimentosSize() {
 		return listadeprocedimentos.size();
 	}
+	
 }

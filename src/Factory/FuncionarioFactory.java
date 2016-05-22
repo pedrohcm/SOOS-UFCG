@@ -1,4 +1,5 @@
 package Factory;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import java.time.format.DateTimeFormatter;
@@ -10,8 +11,12 @@ import Funcionarios.Funcionario;
 import Funcionarios.Medico;
 import Funcionarios.Tecnico;
 
-public class FuncionarioFactory {
+public class FuncionarioFactory implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numeroDeContas;
 	final String prefixoDiretor = "1";
 	final String prefixoMedico = "2";

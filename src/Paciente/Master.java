@@ -1,7 +1,13 @@
 package Paciente;
 
-public class Master implements CartaoFidelidade{
+import java.io.Serializable;
 
+public class Master implements CartaoFidelidade,Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int totalPontos;
 	public Master(int totalPontos)
 	{	

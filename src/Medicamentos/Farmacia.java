@@ -1,5 +1,6 @@
 package Medicamentos;
 
+import java.io.Serializable;
 import java.util.Collections;
 
 import java.util.Comparator;
@@ -9,7 +10,11 @@ import Factory.MedicamentoFactory;
 import Exceptions.ControllerException;
 import Exceptions.MedicamentoException;
 
-public class Farmacia {
+public class Farmacia implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LinkedList<Medicamento> listaMedicamentos;
 	private MedicamentoFactory factoryMedicamentos;
 	/**

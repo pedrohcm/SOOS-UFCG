@@ -1,11 +1,16 @@
 package Paciente;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import Exceptions.ProcedimentoException;
 
 
-public class Paciente implements Comparable<Paciente>{
+public class Paciente implements Comparable<Paciente> , Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Prontuario prontuario;
 	private double valorGasto;
 	private CartaoFidelidade cartao;
@@ -192,7 +197,12 @@ public class Paciente implements Comparable<Paciente>{
 
 	@Override
 	public String toString() {
-		return "Paciente [Prontuario=" + prontuario + "]";
+		String texto =  "Paciente:" + this.prontuario.getNome() + "\n";
+		texto += "Peso: " + this.prontuario.getPeso() + "Tipo Sanguineo: " + prontuario.getTipoSanguineo() + "\n";
+		texto += "Gasto total: " + this.getValorGasto() + "Pontos acumulados: " + this.getPontosCartaoFidelidade();
+		texto += "Resumo de Procedimentos: " + this.getProcedimentosSize() + "procedimento(s)";
+		prontuario.get
+		
 	}
 	
 	/**

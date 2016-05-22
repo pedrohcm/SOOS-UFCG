@@ -1,6 +1,12 @@
 package Orgaos;
 
-public class Orgao {
+import java.io.Serializable;
+
+public class Orgao implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String tipoSanguineo;
 	

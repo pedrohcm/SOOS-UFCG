@@ -1,11 +1,16 @@
 package Funcionarios;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 
 import Exceptions.FuncionarioException;
 
-public abstract class Funcionario {
+public abstract class Funcionario implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String matricula;
 	private String senha;

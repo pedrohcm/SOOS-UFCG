@@ -1,5 +1,11 @@
 package Sistema;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import Exceptions.BancoOrgaosException;
 
 import Exceptions.ControllerException;
@@ -9,16 +15,24 @@ public class Facade {
 	Controller control;
 
 	public Facade() {
-		control = new Controller();
+		iniciaSistema();
 	}
 	
 	// Caso 1
 	
 	/**
 	 * Inicia o Sistema
+	 * @throws FileNotFoundException 
 	 * */
-	public void iniciaSistema() {
-
+	public void iniciaSistema(){
+		try{
+		FileInputStream Arquivo = new FileInputStream("SOOS.dat");
+		ObjectInputStream stream  = new ObjectInputStream(Arquivo);
+		this.control = (Controller) stream.readObject();
+		stream.close();
+		}catch(Exception e){
+			control = new Controller();
+		}
 	}
 	
 	/**
@@ -271,6 +285,10 @@ public class Facade {
 	public void fechaSistema() throws Exception {
 		try {
 			control.verificaLogin();
+			FileOutputStream arquivo = new FileOutputStream("SOOS.dat");
+			ObjectOutputStream stream  = new ObjectOutputStream(arquivo);
+			stream.writeObject(control);
+			stream.close();
 		} catch (Exception e) {
 			throw new Exception("Nao foi possivel fechar o sistema. " + e.getMessage());
 		}

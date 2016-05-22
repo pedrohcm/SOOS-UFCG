@@ -1,5 +1,6 @@
 package Funcionarios;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
@@ -8,7 +9,11 @@ import Exceptions.ControllerException;
 import Exceptions.DataInvalidaException;
 import Exceptions.FuncionarioException;
 
-public class BancoFuncionarios {
+public class BancoFuncionarios implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private HashMap<String,Funcionario> listaFuncionarios;
 	private FuncionarioFactory factoryFuncionarios;
 	

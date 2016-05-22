@@ -1,8 +1,12 @@
 package Medicamentos;
 
+import java.io.Serializable;
 
-
-public class Medicamento implements Comparable<Medicamento> { 
+public class Medicamento implements Comparable<Medicamento>,Serializable { 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private double preco;
 	private int quantidade;

@@ -11,6 +11,9 @@ import Orgaos.BancoOrgaos;
 import Paciente.BancoPacientes;
 import Paciente.Paciente;
 import Procedimentos.GerenciadorDeProcedimentos;
+
+import java.io.Serializable;
+
 import Exceptions.ControllerException;
 import Exceptions.DataInvalidaException;
 import Exceptions.FuncionarioException;
@@ -21,7 +24,11 @@ import Exceptions.ProcedimentoException;
 
 
 
-public class Controller {
+public class Controller implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean sistemaLiberado;
 	private Funcionario usuarioLogado;
 	private BancoPacientes bancoPacientes;
@@ -45,6 +52,8 @@ public class Controller {
 		bancoOrgaos = new BancoOrgaos();
 		gerenciaDeProcedimento = new GerenciadorDeProcedimentos();
 	}
+	
+	// Casos 1,2,3 e 4
 	
 	/**
 	 * Libera Sistema
@@ -421,12 +430,7 @@ public class Controller {
 	 * @throws ControllerException caso o Paciente nao seja encontrado
 	 * */
 	public String getPacienteID(String nome) throws ControllerException {
-		Paciente paciente = bancoPacientes.getPaciente(nome);
-		if(paciente == null){
-			throw new ControllerException("Paciente nao cadastrado.");
-		}
-		String idString = String.format("%d", paciente.getID());
-		return  idString;
+		return bancoPacientes.getPacienteID(nome);
 	}
 	/**
 	 * Realiza um determinado procedimento em um paciente
@@ -437,12 +441,9 @@ public class Controller {
 	 * */
 	public void realizaProcedimento(String procedimento, String idPaciente, String medicamentos) throws ControllerException {
 		usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO);
-		Paciente paciente  = bancoPacientes.buscaPaciente(idPaciente);
+		bancoPacientes.verificaPacienteID(idPaciente);
 		double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
-		double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
-		double precoTotal = precoMedicamentos + precoProcedimento;
-		paciente.armazenarGastos(precoTotal);
-		paciente.strategy();
+		bancoPacientes.realizaProcedimento(procedimento, idPaciente, precoMedicamentos);
 	}
 	
 	/**
@@ -492,30 +493,8 @@ public class Controller {
 			throw new ProcedimentoException("O funcionario " + usuarioLogado.getNome() + " nao tem permissao para realizar procedimentos.");
 		}
 	}
-	/**
-	 * Verifica se o cargo eh valido para criacao de um novo funcionario
-	 * @throws ControllerException
-	 * */
-	private void verificaCargo(String cargo) throws ControllerException{
-		if (cargo.equalsIgnoreCase("diretor geral")){
-			throw new ControllerException("Nao eh possivel criar mais de um Diretor Geral.");
-		}
-		else if (cargo.equals("")){
-			throw new ControllerException("Nome do cargo nao pode ser vazio.");
-		}
-		else if(!cargo.equalsIgnoreCase("diretor geral") && !cargo.equalsIgnoreCase("medico") && !cargo.equalsIgnoreCase("tecnico administrativo")){
-			throw new ControllerException("Cargo invalido.");
-		}
-	}
-	/**
-	 * Verifica se o sistema ja foi liberado anteriormente
-	 * @throws ControllerException
-	 * */
-	private void verificaSistema() throws ControllerException{
-		if (sistemaLiberado == true){
-			throw new ControllerException("Sistema liberado anteriormente.");
-		}
-	}
+
+
 	/**
 	 * Recupera os pontos do cartao fidelidade
 	 * @param posicao associa a posicao do paciente
@@ -533,6 +512,35 @@ public class Controller {
 	public String getGastos(String idPaciente) throws PacienteException{
 		Paciente paciente = bancoPacientes.buscaPaciente(idPaciente);
 		return paciente.getValorGasto();
+	}
+	
+	
+	
+	// Metodos de Verificacao
+	
+	/**
+	 * Verifica se o sistema ja foi liberado anteriormente
+	 * @throws ControllerException
+	 * */
+	private void verificaSistema() throws ControllerException{
+		if (sistemaLiberado == true){
+			throw new ControllerException("Sistema liberado anteriormente.");
+		}
+	}
+	/**
+	 * Verifica se o cargo eh valido para criacao de um novo funcionario
+	 * @throws ControllerException
+	 * */
+	private void verificaCargo(String cargo) throws ControllerException{
+		if (cargo.equalsIgnoreCase("diretor geral")){
+			throw new ControllerException("Nao eh possivel criar mais de um Diretor Geral.");
+		}
+		else if (cargo.equals("")){
+			throw new ControllerException("Nome do cargo nao pode ser vazio.");
+		}
+		else if(!cargo.equalsIgnoreCase("diretor geral") && !cargo.equalsIgnoreCase("medico") && !cargo.equalsIgnoreCase("tecnico administrativo")){
+			throw new ControllerException("Cargo invalido.");
+		}
 	}
 }
 

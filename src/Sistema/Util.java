@@ -2,6 +2,8 @@ package Sistema;
 
 import Funcionarios.Funcionario;
 
+import java.io.Serializable;
+
 import Exceptions.ControllerException;
 import Exceptions.DataInvalidaException;
 import Exceptions.MedicamentoException;
@@ -10,7 +12,7 @@ import Exceptions.PacienteException;
 import Exceptions.ProcedimentoException;
 import Exceptions.TipoSanguineoException;
 
-public class Util {
+public class Util implements Serializable{
 
 	/**
 	 * Verifica o nome do funcionario

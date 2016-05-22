@@ -19,7 +19,6 @@ public class BancoFuncionariosTest {
 	@Before
 	public void criaBancoFuncionarios() throws FuncionarioException, DataInvalidaException {
 		hyldemaria = new Diretor("Hyldemaria", "12345678", "123456", "21/06/1880", "diretor");
-
 		banco = new BancoFuncionarios();
 		banco.cadastrarFuncionarios("Raquel", "MEDICO", "21/09/1990");
 	}

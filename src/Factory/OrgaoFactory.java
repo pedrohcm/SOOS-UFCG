@@ -1,13 +1,20 @@
 package Factory;
 
+import java.io.Serializable;
+
 import Orgaos.Orgao;
 
 /**
  * Classe responsavel por criar objetos do tipo Orgao.
  *
  */
-public class OrgaoFactory {
+public class OrgaoFactory implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Construtor da classe
 	 */

@@ -1,12 +1,18 @@
 package Procedimentos;
 
 
+import java.io.Serializable;
+
 import Exceptions.ProcedimentoException;
 import Paciente.Paciente;
 /**
  * Classe responsavel por gerenciar os procedimentos
  **/
-public class GerenciadorDeProcedimentos {
+public class GerenciadorDeProcedimentos implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Iprocedimentos tipoDeProcedimento;
 	/**
 	 * Realiza o procedimento requisitado em determinado paciente

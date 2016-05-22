@@ -1,6 +1,8 @@
 package Paciente;
 
-public class Vip implements CartaoFidelidade{
+import java.io.Serializable;
+
+public class Vip implements CartaoFidelidade,Serializable{
 	
 	int totalPontos;
 	public Vip(int totalPontos)

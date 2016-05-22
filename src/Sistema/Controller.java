@@ -9,7 +9,7 @@ import Funcionarios.Permissoes;
 import Medicamentos.Farmacia;
 import Orgaos.BancoOrgaos;
 import Paciente.BancoPacientes;
-import Paciente.Paciente;
+
 import Procedimentos.GerenciadorDeProcedimentos;
 
 import java.io.Serializable;
@@ -443,15 +443,14 @@ public class Controller implements Serializable{
 		usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO);
 		bancoPacientes.verificaPacienteID(idPaciente);
 		double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
-		bancoPacientes.realizaProcedimento(procedimento, idPaciente, precoMedicamentos);
+		bancoPacientes.realizaProcedimento(procedimento, idPaciente, precoMedicamentos,usuarioLogado.getNome());
 	}
 	
 	/**
 	 * Retorna o numero total de procedimentos ao qual um paciente foi submetido
 	 * */
 	public int getTotalProcedimento(String id) throws PacienteException {
-		Paciente paciente  = bancoPacientes.buscaPaciente(id);
-		return paciente.getProcedimentosSize();
+		return bancoPacientes.QtdProcedimentosPaciente(id);
 	}
 	/**
 	 * Realiza um procedimento de transplante de orgaos em determinado paciente
@@ -463,15 +462,11 @@ public class Controller implements Serializable{
 	 * */
 	public void realizaProcedimento(String procedimento, String idPaciente, String orgao, String medicamentos) throws ControllerException {
 		usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO);
-		Paciente paciente  = bancoPacientes.buscaPaciente(idPaciente);
 		util.verificaNomeOrgao(orgao);
 		util.verificaProcedimento(procedimento);
-		if (bancoOrgaos.buscaOrgao(orgao,paciente.AcessarInformacoes("tiposanguineo"))){
+		if (bancoOrgaos.buscaOrgao(orgao,bancoPacientes.tipoSanguineoDoPaciente(idPaciente))){
 			double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
-			double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
-			double precoTotal = precoMedicamentos + precoProcedimento;
-			paciente.armazenarGastos(precoTotal);
-			paciente.strategy();
+			bancoPacientes.realizaProcedimento(procedimento, idPaciente, precoMedicamentos,usuarioLogado.getNome(),orgao);
 		}else{
 			throw new OrgaoException("Banco nao possui o orgao especificado.");
 		};
@@ -483,11 +478,8 @@ public class Controller implements Serializable{
 	 */
 	public void realizaProcedimento(String procedimento, String idPaciente) throws PacienteException, ProcedimentoException{
 		if(usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO)){
-			Paciente paciente = bancoPacientes.buscaPaciente(idPaciente);
-			double precoProcedimento = gerenciaDeProcedimento.realizarProcedimento(procedimento, paciente);
 			util.verificaProcedimento(procedimento);
-			paciente.armazenarGastos(precoProcedimento);
-			paciente.strategy();
+			bancoPacientes.realizaProcedimento(procedimento, idPaciente,usuarioLogado.getNome());
 			}
 		else{
 			throw new ProcedimentoException("O funcionario " + usuarioLogado.getNome() + " nao tem permissao para realizar procedimentos.");
@@ -510,8 +502,7 @@ public class Controller implements Serializable{
 	 * @throws PacienteException 
 	 */
 	public String getGastos(String idPaciente) throws PacienteException{
-		Paciente paciente = bancoPacientes.buscaPaciente(idPaciente);
-		return paciente.getValorGasto();
+		return bancoPacientes.despesaDoPaciente(idPaciente);
 	}
 	
 	

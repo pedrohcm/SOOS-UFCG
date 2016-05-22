@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 
 import Exceptions.ProcedimentoException;
+import Procedimentos.Iprocedimentos;
 
 
 public class Prontuario implements Serializable{
@@ -19,7 +20,7 @@ public class Prontuario implements Serializable{
 	private String sexo;
 	private String genero;
 	private int id;
-	private LinkedList<String> listadeprocedimentos;
+	private LinkedList<Iprocedimentos> listadeprocedimentos;
 	
 
 	
@@ -44,8 +45,7 @@ public class Prontuario implements Serializable{
 		this.genero = genero;
 		this.id = id;
 		
-		listadeprocedimentos = new LinkedList<String>();
-		
+		listadeprocedimentos = new LinkedList<Iprocedimentos>();
 	}
 	
 	/**
@@ -164,20 +164,20 @@ public class Prontuario implements Serializable{
 		return true;
 	}
 	
-	
-	
-	
 
 	@Override
 	public String toString() {
-		return "Prontuario [nome=" + nome + ", nascimento=" + nascimento + ", peso=" + peso + ", tipoSanguineo="
-				+ tipoSanguineo + ", sexo=" + sexo + ", genero=" + genero + ", id=" + id + "]";
+		String texto = "";
+		for (Iprocedimentos procedimento : listadeprocedimentos){
+			texto += procedimento.toString();
+		}
+		return texto;
 	}
 	/**
 	 * Adiciona o procedimento efetuado na lista de procedimentos do prontuario
 	 * @throws ProcedimentoException 
 	 * */
-	public void adicionarProcedimentoALista(String procedimento) throws ProcedimentoException{
+	public void adicionarProcedimentoALista(Iprocedimentos procedimento) throws ProcedimentoException{
 		
 		listadeprocedimentos.add(procedimento);
 

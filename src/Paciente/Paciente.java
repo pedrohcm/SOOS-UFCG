@@ -1,9 +1,17 @@
 package Paciente;
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.Serializable;
 import java.util.Locale;
 
 import Exceptions.ProcedimentoException;
+import Procedimentos.CirurgiaBariatrica;
+import Procedimentos.ConsultaClinica;
+import Procedimentos.Iprocedimentos;
+import Procedimentos.RedesignacaoSexual;
+import Procedimentos.TransplanteDeOrgaos;
 
 
 public class Paciente implements Comparable<Paciente> , Serializable{
@@ -117,24 +125,24 @@ public class Paciente implements Comparable<Paciente> , Serializable{
 	 * @throws ProcedimentoException 
 	 */
 	
-	public void adicionaPontosCartao(String procedimento) throws ProcedimentoException{
+	public void adicionaPontosCartao(Iprocedimentos procedimento) throws ProcedimentoException{
 		
-		if(procedimento.equalsIgnoreCase("Consulta clinica")){
+		if(procedimento.getClass() == ConsultaClinica.class){
 			cartao.adicionarPontos(CONSULTACLINICA);
 		}
-		else if(procedimento.equalsIgnoreCase("Cirurgia bariatrica")){
+		else if(procedimento.getClass() == CirurgiaBariatrica.class){
 			cartao.adicionarPontos(100);
 		}
-		else if(procedimento.equalsIgnoreCase("Redesignacao sexual")){
+		else if(procedimento.getClass() == RedesignacaoSexual.class){
 			cartao.adicionarPontos(130);
 
 		}
-		else if(procedimento.equalsIgnoreCase("Transplante de orgaos")){
+		else if(procedimento.getClass() == TransplanteDeOrgaos.class){
 			cartao.adicionarPontos(160);
 		}
 		
 		else{
-			throw new ProcedimentoException(procedimento);
+			throw new ProcedimentoException("");
 		}
 	}
 	
@@ -197,23 +205,34 @@ public class Paciente implements Comparable<Paciente> , Serializable{
 
 	@Override
 	public String toString() {
-		String texto =  "Paciente:" + this.prontuario.getNome() + "\n";
-		texto += "Peso: " + this.prontuario.getPeso() + "Tipo Sanguineo: " + prontuario.getTipoSanguineo() + "\n";
-		texto += "Gasto total: " + this.getValorGasto() + "Pontos acumulados: " + this.getPontosCartaoFidelidade();
-		texto += "Resumo de Procedimentos: " + this.getProcedimentosSize() + "procedimento(s)";
-		prontuario.get
-		
+		String texto =  "Paciente:" + this.prontuario.getNome() +  System.getProperty("line.separator");
+		texto += "Peso: " + String.format("%.2f", prontuario.getPeso()) + " Tipo Sanguineo: " + prontuario.getTipoSanguineo() + System.getProperty("line.separator");
+		texto += "Sexo: " + prontuario.getSexo() + " Genero: " + prontuario.getGenero() + System.getProperty("line.separator");
+		texto += "Gasto total: " + this.getValorGasto() + " Pontos acumulados: " + this.getPontosCartaoFidelidade() + System.getProperty("line.separator");
+		texto += "Resumo de Procedimentos: " + this.getProcedimentosSize() + " procedimento(s)" + System.getProperty("line.separator");
+		texto += this.prontuario.toString();
+		return texto;
 	}
-	
+
 	/**
 	 * Registra o procedimento efetuado na lista de procedimentos do prontuario
 	 * @throws ProcedimentoException 
+	 * @throws IOException 
 	 * */
-	public void registrarProcedimento(String procedimento) throws ProcedimentoException{
+	public void registrarProcedimento(Iprocedimentos procedimento) throws ProcedimentoException{
 		adicionaPontosCartao(procedimento);
 		prontuario.adicionarProcedimentoALista(procedimento);
 	}
-	
+	public void registrarInformacoesEmArquivo(){
+		String path = "Fichas/" + AcessarInformacoes("nome") + ".txt";
+		try{
+		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
+		buffWrite.write(toString());
+		buffWrite.close();
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
 	
 	
 	/**

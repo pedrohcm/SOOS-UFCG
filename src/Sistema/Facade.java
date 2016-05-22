@@ -14,7 +14,7 @@ import Exceptions.OrgaoException;
 public class Facade {
 	Controller control;
 
-	public Facade() {
+	public Facade(){
 		iniciaSistema();
 	}
 	

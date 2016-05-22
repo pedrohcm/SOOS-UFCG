@@ -110,6 +110,7 @@ public class BancoPacientes implements Serializable{
 		}
 		return null;
 	}
+	
 	/**
 	 * Realiza um determinado procedimento em um paciente
 	 * @param Procedimento a ser Realizado
@@ -118,18 +119,74 @@ public class BancoPacientes implements Serializable{
 	 * @throws ProcedimentoException Caso nao exista esse procedimento
 	 * @throws PacienteException caso o id seja invalido
 	 * */
-	public void realizaProcedimento(String procedimento,String idPaciente,double custoMedicamentos) throws ProcedimentoException, PacienteException{
+	public void realizaProcedimento(String procedimento,String idPaciente,double custoMedicamentos,String nomeDoMedico) throws ProcedimentoException, PacienteException{
 		Paciente paciente = buscaPaciente(idPaciente);
-		double custoProcedimento = gerenciaDeProcedimentos.realizarProcedimento(procedimento, paciente);
+		double custoProcedimento = gerenciaDeProcedimentos.realizarProcedimento(procedimento, paciente,nomeDoMedico);
 		double custoTotal = custoMedicamentos + custoProcedimento;
 		paciente.armazenarGastos(custoTotal);
 		paciente.strategy();
+		paciente.registrarInformacoesEmArquivo();
 	}
-	
-	public void realizaProcedimento(String procedimento, String idPaciente, String orgao){
-		
+	/**
+	 * Metodo que retorna a quantidade de procedimentos ao qual o paciente foi submetido
+	 * @param id referente ao paciente
+	 * @return Numero de procedimentos que o paciente foi submetido
+	 * @throws PacienteException caso o paciente nao seja encontrado
+	 * */
+	public int QtdProcedimentosPaciente(String id) throws PacienteException{
+		Paciente paciente = buscaPaciente(id);
+		return paciente.getProcedimentosSize();
 	}
-	
+	/**
+	 * Retornar a despesa total de determinado paciente
+	 * @param id do paciente a ser pesquisado
+	 * @return Valor referente a despesa do paciente
+	 * @throws PacienteException caso o paciente nao seja encontrado
+	 * */
+	public String despesaDoPaciente(String idPaciente) throws PacienteException{
+		Paciente paciente = buscaPaciente(idPaciente);
+		return paciente.getValorGasto();
+	}
+	/**
+	 * Realiza um determinado procedimento em um paciente
+	 * @param Procedimento a ser Realizado
+	 * @param Id do paciente que sera realizado o procedimento
+	 * @param custoMedicamentos Custo dos medicamentos ultilizados no procedimento
+	 * @param Orgao a ser transplantado
+	 * @throws ProcedimentoException Caso nao exista esse procedimento
+	 * @throws PacienteException caso o id seja invalido
+	 * */
+	public void realizaProcedimento(String procedimento,String idPaciente,double custoMedicamentos,String nomeDoMedico,String orgao) throws ProcedimentoException, PacienteException{
+		Paciente paciente = buscaPaciente(idPaciente);
+		double custoProcedimento = gerenciaDeProcedimentos.realizarProcedimento(procedimento, paciente,nomeDoMedico,orgao);
+		double custoTotal = custoMedicamentos + custoProcedimento;
+		paciente.armazenarGastos(custoTotal);
+		paciente.strategy();
+		paciente.registrarInformacoesEmArquivo();
+	}
+	/**
+	 * Realiza o procedimento requisitado em determinado paciente
+	 * @param procedimento Tipo de procedimento a ser realizado
+	 * @param id do Paciente que sera submentido ao procedimento
+	 * @param nome do medico que realizou o procedimento
+	 * @throws PacienteException caso o Paciente nao exista 
+	 * */
+	public void realizaProcedimento(String procedimento,String idPaciente,String nomeDoMedico) throws PacienteException, ProcedimentoException{
+		Paciente paciente = buscaPaciente(idPaciente);
+		double custoProcedimento = gerenciaDeProcedimentos.realizarProcedimento(procedimento, paciente ,nomeDoMedico);
+		paciente.armazenarGastos(custoProcedimento);
+		paciente.strategy();
+		paciente.registrarInformacoesEmArquivo();
+	}
+	/**
+	 * Metodo que retorna o tipo sanguineo de um paciente pelo id referente ao mesmo
+	 * @param id do paciente a ser pesquisado
+	 * @return TipoSanguineo do paciente
+	 * @throws PacienteException caso o paciente nao seja encontrado
+	 * */
+	public String tipoSanguineoDoPaciente(String id) throws PacienteException{
+		return buscaPaciente(id).AcessarInformacoes("tiposanguineo");
+	}
 	/**
 	 * Recupera o ID de um paciente pelo nome
 	 * @param Nome do paciente ao qual o id sera recuperado

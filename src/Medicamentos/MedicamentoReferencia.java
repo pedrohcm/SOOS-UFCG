@@ -3,6 +3,12 @@ package Medicamentos;
 public class MedicamentoReferencia extends Medicamento {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	/**
 	 * Construtor de medicamento por referencia
 	 * @param nome associa ao nome
 	 * @param preco associa ao preco

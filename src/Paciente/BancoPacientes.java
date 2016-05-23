@@ -125,7 +125,6 @@ public class BancoPacientes implements Serializable{
 		double custoTotal = custoMedicamentos + custoProcedimento;
 		paciente.armazenarGastos(custoTotal);
 		paciente.strategy();
-		paciente.registrarInformacoesEmArquivo();
 	}
 	/**
 	 * Metodo que retorna a quantidade de procedimentos ao qual o paciente foi submetido
@@ -162,7 +161,6 @@ public class BancoPacientes implements Serializable{
 		double custoTotal = custoMedicamentos + custoProcedimento;
 		paciente.armazenarGastos(custoTotal);
 		paciente.strategy();
-		paciente.registrarInformacoesEmArquivo();
 	}
 	/**
 	 * Realiza o procedimento requisitado em determinado paciente
@@ -176,7 +174,6 @@ public class BancoPacientes implements Serializable{
 		double custoProcedimento = gerenciaDeProcedimentos.realizarProcedimento(procedimento, paciente ,nomeDoMedico);
 		paciente.armazenarGastos(custoProcedimento);
 		paciente.strategy();
-		paciente.registrarInformacoesEmArquivo();
 	}
 	/**
 	 * Metodo que retorna o tipo sanguineo de um paciente pelo id referente ao mesmo
@@ -323,5 +320,14 @@ public class BancoPacientes implements Serializable{
 		if (id.equals("") || id.equals(" ")){
 			throw new PacienteException("ID do paciente nao pode ser vazio.");
 		}
+	}
+	/**
+	 * Registra as informacoes do paciente em um arquivo
+	 * @param id do paciente em questao
+	 * @throws PacienteException caso nao exista o paciente
+	 * */
+	public void exportaFichaPaciente(String idPaciente) throws PacienteException{
+		Paciente paciente = buscaPaciente(idPaciente);
+		paciente.registrarInformacoesEmArquivo();
 	}
 }

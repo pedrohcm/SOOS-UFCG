@@ -10,7 +10,6 @@ import Medicamentos.Farmacia;
 import Orgaos.BancoOrgaos;
 import Paciente.BancoPacientes;
 
-import Procedimentos.GerenciadorDeProcedimentos;
 
 import java.io.Serializable;
 
@@ -36,7 +35,6 @@ public class Controller implements Serializable{
 	private Farmacia farmacia;
 	private Util util;
 	private BancoOrgaos bancoOrgaos;
-	private GerenciadorDeProcedimentos gerenciaDeProcedimento;
 	
 	/**
 	 * Construtor
@@ -50,7 +48,6 @@ public class Controller implements Serializable{
 		bancoFuncionarios = new BancoFuncionarios();
 		farmacia = new Farmacia();
 		bancoOrgaos = new BancoOrgaos();
-		gerenciaDeProcedimento = new GerenciadorDeProcedimentos();
 	}
 	
 	// Casos 1,2,3 e 4
@@ -504,7 +501,14 @@ public class Controller implements Serializable{
 	public String getGastos(String idPaciente) throws PacienteException{
 		return bancoPacientes.despesaDoPaciente(idPaciente);
 	}
-	
+	/**
+	 * Registra as informacoes do paciente em um arquivo
+	 * @param id do paciente em questao
+	 * @throws PacienteException caso nao exista o paciente
+	 * */
+	public void exportaFichaPaciente(String idPaciente) throws PacienteException{
+		bancoPacientes.exportaFichaPaciente(idPaciente);
+	}
 	
 	
 	// Metodos de Verificacao

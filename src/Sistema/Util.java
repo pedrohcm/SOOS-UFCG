@@ -15,6 +15,10 @@ import Exceptions.TipoSanguineoException;
 public class Util implements Serializable{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Verifica o nome do funcionario
 	 * 
 	 * @param nome

@@ -4,6 +4,7 @@ package Paciente;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Locale;
 
 import Exceptions.ProcedimentoException;
@@ -223,8 +224,13 @@ public class Paciente implements Comparable<Paciente> , Serializable{
 		adicionaPontosCartao(procedimento);
 		prontuario.adicionarProcedimentoALista(procedimento);
 	}
+	/**
+	 * Registra as informaçoes em um arquivo .txt
+	 * */
 	public void registrarInformacoesEmArquivo(){
-		String path = "Fichas/" + AcessarInformacoes("nome") + ".txt";
+		String path = "fichas_pacientes/" + AcessarInformacoes("nome") + "_"+ LocalDate.now().getYear() + "_" +
+				LocalDate.now().getMonthValue()+ "_" + 
+				 + LocalDate.now().getDayOfMonth() + ".txt";
 		try{
 		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
 		buffWrite.write(toString());

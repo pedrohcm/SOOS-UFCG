@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Vip implements CartaoFidelidade,Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int totalPontos;
 	public Vip(int totalPontos)
 	{	

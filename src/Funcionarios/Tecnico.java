@@ -7,6 +7,11 @@ import Exceptions.FuncionarioException;
 
 public class Tecnico extends Funcionario {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Construtor de tecnico
 	 * @param nome associa ao nome
 	 * @param matricula associa a matricula

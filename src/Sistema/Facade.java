@@ -498,4 +498,16 @@ public class Facade {
 			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
 		}
 	}
+	/**
+	 * Registra as informacoes do paciente em um arquivo
+	 * @param id do paciente em questao
+	 * @throws Exception caso nao exista o paciente
+	 * */
+	public void exportaFichaPaciente(String idPaciente) throws Exception{
+		try{
+			control.exportaFichaPaciente(idPaciente);
+		}catch(ControllerException e){
+			throw new Exception(e.getMessage());
+		}
+	}
 }

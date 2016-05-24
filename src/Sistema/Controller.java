@@ -432,10 +432,13 @@ public class Controller implements Serializable {
 	 * @throws ControllerException
 	 * */
 	public void realizaProcedimento(String procedimento, String idPaciente, String medicamentos) throws ControllerException {
-		usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO);
+		if(usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO)){
 		bancoPacientes.verificaPacienteID(idPaciente);
 		double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
 		bancoPacientes.realizaProcedimento(procedimento, idPaciente, precoMedicamentos,usuarioLogado.getNome());
+		}else{
+			throw new ProcedimentoException("O funcionario " + usuarioLogado.getNome() + " nao tem permissao para realizar procedimentos.");
+		}
 	}
 	
 	/**
@@ -453,15 +456,19 @@ public class Controller implements Serializable {
 	 * @throws ControllerException
 	 * */
 	public void realizaProcedimento(String procedimento, String idPaciente, String orgao, String medicamentos) throws ControllerException {
-		usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO);
-		util.verificaNomeOrgao(orgao);
-		util.verificaProcedimento(procedimento);
-		if (bancoOrgaos.buscaOrgao(orgao,bancoPacientes.tipoSanguineoDoPaciente(idPaciente))){
-			double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
-			bancoPacientes.realizaProcedimento(procedimento, idPaciente, precoMedicamentos,usuarioLogado.getNome(),orgao);
+		if(usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO)){
+			util.verificaNomeOrgao(orgao);
+			util.verificaProcedimento(procedimento);
+			bancoPacientes.verificaPacienteID(idPaciente);
+			if (bancoOrgaos.buscaOrgao(orgao,bancoPacientes.tipoSanguineoDoPaciente(idPaciente))){
+				double precoMedicamentos = farmacia.verificaListaDeMedicamentos(medicamentos);
+				bancoPacientes.realizaProcedimento(procedimento, idPaciente, precoMedicamentos,usuarioLogado.getNome(),orgao);
+			}else{
+				throw new OrgaoException("Banco nao possui o orgao especificado.");
+			}
 		}else{
-			throw new OrgaoException("Banco nao possui o orgao especificado.");
-		};
+			throw new ProcedimentoException("O funcionario " + usuarioLogado.getNome() + " nao tem permissao para realizar procedimentos.");
+		}
 	}
 	/**
 	 * Realiza um procedimento
@@ -471,6 +478,7 @@ public class Controller implements Serializable {
 	public void realizaProcedimento(String procedimento, String idPaciente) throws PacienteException, ProcedimentoException{
 		if(usuarioLogado.verificaPermissao(Permissoes.REALIZAPROCEDIMENTO)){
 			util.verificaProcedimento(procedimento);
+			bancoPacientes.verificaPacienteID(idPaciente);
 			bancoPacientes.realizaProcedimento(procedimento, idPaciente,usuarioLogado.getNome());
 			}
 		else{

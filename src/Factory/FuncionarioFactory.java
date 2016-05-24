@@ -13,16 +13,14 @@ import Funcionarios.Tecnico;
 
 public class FuncionarioFactory implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int numeroDeContas;
-	final String prefixoDiretor = "1";
-	final String prefixoMedico = "2";
-	final String prefixoTecnico = "3";
+	private final String prefixoDiretor = "1";
+	private final String prefixoMedico = "2";
+	private final String prefixoTecnico = "3";
+	
 	/**
-	 * Construtor 
+	 * Construtor da classe, que comeca a contabilizar o numero da conta
 	 */
 	public FuncionarioFactory(){
 		numeroDeContas = 1;

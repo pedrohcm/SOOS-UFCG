@@ -9,9 +9,7 @@ import Procedimentos.Iprocedimentos;
 
 
 public class Prontuario implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String nascimento;
@@ -21,10 +19,6 @@ public class Prontuario implements Serializable{
 	private String genero;
 	private int id;
 	private LinkedList<Iprocedimentos> listadeprocedimentos;
-	
-
-	
-	
 	
 	/**
 	 * Construtor de Prontuario
@@ -36,7 +30,7 @@ public class Prontuario implements Serializable{
 	 * @param tipoSanguineo associa ao tipo sanguineo
 	 * @param id
 	 */
-	public Prontuario(String nome,String nascimento,double peso,String sexo,String genero,String tipoSanguineo,int id){
+	public Prontuario(String nome,String nascimento,double peso,String sexo,String genero,String tipoSanguineo,int id) {
 		this.nome = nome;
 		this.nascimento = nascimento;
 		this.peso = peso;
@@ -44,7 +38,6 @@ public class Prontuario implements Serializable{
 		this.sexo = sexo;
 		this.genero = genero;
 		this.id = id;
-		
 		listadeprocedimentos = new LinkedList<Iprocedimentos>();
 	}
 	
@@ -55,6 +48,7 @@ public class Prontuario implements Serializable{
 	public String getNome(){
 		return this.nome;
 	}
+	
 	/**
 	 * Recupera a data de nascimento.
 	 * @return data de nascimento
@@ -141,7 +135,10 @@ public class Prontuario implements Serializable{
 		String idadeString = String.format("%d", idade);
 		return idadeString;
 	}
-
+	
+	/**
+	 * Hashcode que funciona a partir dos atributos do equals
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -149,7 +146,10 @@ public class Prontuario implements Serializable{
 		result = prime * result + id;
 		return result;
 	}
-
+	
+	/**
+	 * Equals que compara dois prontuarios a partir do id
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -164,7 +164,10 @@ public class Prontuario implements Serializable{
 		return true;
 	}
 	
-
+	
+	/**
+	 * Retorna uma string com os procedimentos realizados
+	 */
 	@Override
 	public String toString() {
 		String texto = "";
@@ -178,9 +181,7 @@ public class Prontuario implements Serializable{
 	 * @throws ProcedimentoException 
 	 * */
 	public void adicionarProcedimentoALista(Iprocedimentos procedimento) throws ProcedimentoException{
-		
 		listadeprocedimentos.add(procedimento);
-
 	}
 		
 	/**
@@ -189,6 +190,7 @@ public class Prontuario implements Serializable{
 	public void setPeso(double peso){
 		this.peso = peso;
 	}
+	
 	/**
 	 * Modifica o Genero do Paciente
 	 * */

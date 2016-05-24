@@ -10,11 +10,10 @@ import Paciente.Paciente;
  * Classe responsavel por gerenciar os procedimentos
  **/
 public class GerenciadorDeProcedimentos implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private Iprocedimentos tipoDeProcedimento;
+	
 	/**
 	 * Realiza o procedimento requisitado em determinado paciente
 	 * @param procedimento Tipo de procedimento a ser realizado
@@ -79,4 +78,5 @@ public class GerenciadorDeProcedimentos implements Serializable{
 				break;
 		}
 	}
+	
 }	

@@ -3,9 +3,7 @@ package Medicamentos;
 import java.io.Serializable;
 
 public class Medicamento implements Comparable<Medicamento>,Serializable { 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private String nome;
 	private double preco;
@@ -41,16 +39,15 @@ public class Medicamento implements Comparable<Medicamento>,Serializable {
 	 */
 	private void associaCategoria(String tipos) {
 		String[] categoriasSeparadas = tipos.split(",");
-		
 		for(TiposMedicamento tipo: TiposMedicamento.values()) {
 			for(String categoria: categoriasSeparadas) {
 				if(tipo.name().equalsIgnoreCase(categoria)) {
-					
 					listaCategorias += tipo.toString().toLowerCase() + ",";
 				}
 			}
 		}
 	}
+	
 	/**
 	 * Adiciona quantidade de medicamento
 	 * @param quantidade associa a quantidade
@@ -91,14 +88,20 @@ public class Medicamento implements Comparable<Medicamento>,Serializable {
 		return listaCategorias.substring(4, (listaCategorias.length()-1));
 	}
 	
+	/**
+	 * Retorna uma string com as informacoes do medicamento
+	 */
 	@Override
 	public String toString() {
 		String texto = String.format("Medicamento Generico: %s - Preco: R$ %.2f - Disponivel: %d - Categorias: %s", getNome(), getPreco(), getQuantidade(), getCategorias());
 		return texto;
 	}
 
+	/**
+	 * Compara o medicamento pelo preco
+	 */
 	@Override
-	public int compareTo(Medicamento medicamento) { //compara pelo menor preco
+	public int compareTo(Medicamento medicamento) {
 		if(this.preco < medicamento.getPreco()) {
 			return 1;
 		}

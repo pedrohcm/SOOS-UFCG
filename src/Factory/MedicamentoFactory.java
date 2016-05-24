@@ -6,17 +6,15 @@ import Medicamentos.Medicamento;
 import Medicamentos.MedicamentoReferencia;
 
 public class MedicamentoFactory implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Construtor
+	 * Construtor da classe
 	 */
 	public MedicamentoFactory() {
-		
 	}
+	
 	/**
 	 * Cria Medicamentos
 	 * @param nome associa ao nome

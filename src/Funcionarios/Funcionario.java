@@ -7,9 +7,6 @@ import java.util.HashSet;
 import Exceptions.FuncionarioException;
 
 public abstract class Funcionario implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String matricula;
@@ -39,7 +36,7 @@ public abstract class Funcionario implements Serializable{
 	/**
 	 * Metodo abstrato usada para definir as permissoes de cada tipo de usuario de forma distinta
 	 * */
-	protected abstract void definirPermissoes();
+	public abstract void definirPermissoes();
 	
 	/**
 	 * Metodo que verifica se determinado usuario possui ou nao uma permissao especifica
@@ -109,6 +106,12 @@ public abstract class Funcionario implements Serializable{
 		
 		return dataFormatada;
 	}
+	
+	/**
+	 * Confirma a senha do funcionario
+	 * @param senha senha ser verificada
+	 * @throws FuncionarioException
+	 */
 	public void confirmarSenha(String senha) throws FuncionarioException{
 		if (!senha.equals(this.senha)){
 			throw new FuncionarioException("Senha invalida.");
@@ -145,6 +148,9 @@ public abstract class Funcionario implements Serializable{
 		this.listadepermissoes = permissoesConcedidas;
 	}
 	
+	/**
+	 * Hashcode que funciona pelos atributos do equals
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -153,6 +159,10 @@ public abstract class Funcionario implements Serializable{
 		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
 		return result;
 	}
+	
+	/**
+	 * Equals que compara dois objetos do tipo funcionario a partir da matricula e o do cargo
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -174,6 +184,10 @@ public abstract class Funcionario implements Serializable{
 			return false;
 		return true;
 	}
+	
+	/**
+	 * Retorna uma string qcontendo todas as nformacoes do funcionario
+	 */
 	@Override
 	public String toString() {
 		return "Funcionario [nome=" + nome + ", matricula=" + matricula + ", senha=" + senha + ", data=" + data

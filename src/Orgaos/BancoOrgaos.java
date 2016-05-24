@@ -8,9 +8,7 @@ import Factory.OrgaoFactory;
 import Exceptions.OrgaoException;
 
 public class BancoOrgaos implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Orgao> orgaos;
 	private OrgaoFactory factoryOrgaos;

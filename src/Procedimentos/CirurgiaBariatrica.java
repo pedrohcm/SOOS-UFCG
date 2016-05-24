@@ -9,14 +9,18 @@ import Paciente.Paciente;
  * Classe responsavel pelas caracteristicas do procedimento de cirurgia bariatrica
  * */
 public class CirurgiaBariatrica implements Iprocedimentos,Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private final double PRECO = 7600;
 	private String medico;
 	private LocalDate data;
-	public CirurgiaBariatrica(String nome,LocalDate data){
+	
+	/**
+	 * Construtor da classe
+	 * @param nome nome do medico
+	 * @param data data do procedimento
+	 */
+	public CirurgiaBariatrica(String nome, LocalDate data){
 		this.medico = nome;
 		this.data = data;
 	}
@@ -32,6 +36,10 @@ public class CirurgiaBariatrica implements Iprocedimentos,Serializable{
 		paciente.setPeso(pesoAposProcedimento);
 		return PRECO;
 	}
+	
+	/**
+	 * Retorna uma string com as informacoes do procedimento
+	 */
 	@Override
 	public String toString() {
 		String texto = "-->Cirurgia Bariatrica: " + System.getProperty("line.separator");

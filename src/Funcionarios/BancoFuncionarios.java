@@ -10,15 +10,13 @@ import Exceptions.DataInvalidaException;
 import Exceptions.FuncionarioException;
 
 public class BancoFuncionarios implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private HashMap<String,Funcionario> listaFuncionarios;
 	private FuncionarioFactory factoryFuncionarios;
 	
 	/**
-	 * Construtor
+	 * Construtor da classe, criando a colecao e instanciando a factory
 	 */
 	public BancoFuncionarios() {
 		listaFuncionarios = new HashMap<String,Funcionario>();

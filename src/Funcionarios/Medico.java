@@ -6,9 +6,7 @@ import java.util.HashSet;
 import Exceptions.FuncionarioException;
 
 public class Medico extends Funcionario {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -24,7 +22,10 @@ public class Medico extends Funcionario {
 		super(nome,matricula,senha,data,cargo);
 		definirPermissoes();
 	}
-
+	
+	/**
+	 * Define permissoes relacionadas ao medico
+	 */
 	@Override
 	public void definirPermissoes() {
 		HashSet<Permissoes> permissoesConcedidas = this.getPermissoes();

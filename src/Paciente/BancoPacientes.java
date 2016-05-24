@@ -13,9 +13,7 @@ import Exceptions.PacienteException;
 import Exceptions.ProcedimentoException;
 
 public class BancoPacientes implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Paciente> pacientes;
 	private PacienteFactory factoryPacientes;
@@ -52,7 +50,7 @@ public class BancoPacientes implements Serializable{
 	}
 	
 	/**
-	 * Recupera informações do paciente com o id recebido
+	 * Recupera informacoes do paciente com o id recebido
 	 * @param id o id a ser pesquisado
 	 * @param atributo atributo a ser retornado
 	 * @return string com o atributo
@@ -284,6 +282,10 @@ public class BancoPacientes implements Serializable{
 			throw new PacienteException("Nao ha prontuarios suficientes (max = " + pacientes.size() + ").");
 		}
 	}
+	
+	/**
+	 * Hashcode que funciona pelos mesmo atributos do equals
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -291,7 +293,10 @@ public class BancoPacientes implements Serializable{
 		result = prime * result + ((pacientes == null) ? 0 : pacientes.hashCode());
 		return result;
 	}
-
+	
+	/**
+	 * Equals que verifica se dois pacientes sao iguais se o objeto for o mesmo
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -308,11 +313,15 @@ public class BancoPacientes implements Serializable{
 			return false;
 		return true;
 	}
-
+	
+	/**
+	 * Retorna uma string com as informacoes dos pacientes
+	 */
 	@Override
 	public String toString() {
 		return "BancoPacientes [pacientes=" + pacientes + "]";
 	}
+	
 	/**
 	 * Verifica se a ID de um paciente e vazia
 	 * */
@@ -321,6 +330,7 @@ public class BancoPacientes implements Serializable{
 			throw new PacienteException("ID do paciente nao pode ser vazio.");
 		}
 	}
+	
 	/**
 	 * Registra as informacoes do paciente em um arquivo
 	 * @param id do paciente em questao

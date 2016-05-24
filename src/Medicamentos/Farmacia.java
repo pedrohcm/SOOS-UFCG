@@ -11,14 +11,12 @@ import Exceptions.ControllerException;
 import Exceptions.MedicamentoException;
 
 public class Farmacia implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private LinkedList<Medicamento> listaMedicamentos;
 	private MedicamentoFactory factoryMedicamentos;
 	/**
-	 * Construtor
+	 * Construtor da classe, criando a colecao de medicamentos e instanciando a factory
 	 */
 	public Farmacia() {
 		listaMedicamentos = new LinkedList<Medicamento>();
@@ -199,6 +197,9 @@ public class Farmacia implements Serializable{
 		});
 	}
 	
+	/**
+	 * Organiza medicamentos
+	 */
 	public void sortedMedicamentos() {
 		Collections.sort(listaMedicamentos);
 	}
@@ -223,19 +224,15 @@ public class Farmacia implements Serializable{
 	}
 	
 	/**
-	 * Ordenar a lista de Medicamentos
-	 * @param ordenacao
-	 * @return
+	 * Ordenar a lista de Medicamentos de acordo com o parametro recebido
+	 * @param ordenacao ordenacao desejada (alfabetica ou preco)
+	 * @return nomes dos medicamentos ordenados
 	 */
 	public String getListaOrdenada(String ordenacao){
-		
 		if(ordenacao.equalsIgnoreCase("alfabetica")){
 			sortedMedicamentosNome();
-			
-		}
-		else{
-			sortedMedicamentosPreco();
-			
+		} else	{
+			sortedMedicamentosPreco();	
 		}
 		String nomedosmedicamentos = "";
 		for (Medicamento medicamento : listaMedicamentos){

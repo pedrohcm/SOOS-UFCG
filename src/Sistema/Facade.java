@@ -13,7 +13,10 @@ import Exceptions.OrgaoException;
 
 public class Facade {
 	Controller control;
-
+	
+	/**
+	 * Construtor da classe, iniciando o sistema
+	 */
 	public Facade(){
 		iniciaSistema();
 	}
@@ -26,10 +29,10 @@ public class Facade {
 	 * */
 	public void iniciaSistema(){
 		try{
-		FileInputStream Arquivo = new FileInputStream("SOOS.dat");
-		ObjectInputStream stream  = new ObjectInputStream(Arquivo);
-		this.control = (Controller) stream.readObject();
-		stream.close();
+			FileInputStream Arquivo = new FileInputStream("SOOS.dat");
+			ObjectInputStream stream  = new ObjectInputStream(Arquivo);
+			this.control = (Controller) stream.readObject();
+			stream.close();
 		}catch(Exception e){
 			control = new Controller();
 		}
@@ -51,6 +54,7 @@ public class Facade {
 			throw new Exception("Erro ao liberar o sistema. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Faz login
 	 * @param matricula associa a matricula
@@ -64,6 +68,7 @@ public class Facade {
 			throw new Exception("Nao foi possivel realizar o login. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Recupera informacao do usuario
 	 * @param matricula associa a matricula
@@ -78,6 +83,7 @@ public class Facade {
 			throw new Exception("Erro na consulta de funcionario. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Cadastra Funcionario
 	 * @param nome associa ao nome
@@ -142,6 +148,7 @@ public class Facade {
 			throw new Exception("Nao foi possivel cadastrar o paciente. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Atualiza senha do usuario
 	 * @param senhaAntiga associa a senha antiga
@@ -155,6 +162,7 @@ public class Facade {
 			throw new Exception("Erro ao atualizar funcionario. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Recupera informacoes do paciente
 	 * @param id associa ao id 
@@ -169,6 +177,7 @@ public class Facade {
 			throw new Exception(e.getMessage());
 		}
 	}
+	
 	/**
 	 * Recupera prontuario
 	 * @param posicao associa a posicao do prontuario
@@ -182,6 +191,7 @@ public class Facade {
 			throw new Exception("Erro ao consultar prontuario. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Cadastra Medicamentos
 	 * @param nome associa ao nome
@@ -200,6 +210,7 @@ public class Facade {
 			throw new Exception("Erro no cadastro de medicamento. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Recupera informacoes do medicamento
 	 * @param atributo associa ao atributo
@@ -214,6 +225,7 @@ public class Facade {
 			throw new Exception("Erro ao consultar medicamento. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Atualiza Medicamentos
 	 * @param nome associa ao nome do medicamento
@@ -228,6 +240,7 @@ public class Facade {
 			throw new Exception("Erro ao atualizar medicamento. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Consulta Medicamentos que contem categoria
 	 * @param categoria associa a categoria
@@ -241,6 +254,7 @@ public class Facade {
 			throw new Exception("Erro na consulta de medicamentos. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Consulta Medicamento pelo nome
 	 * @param nome associa ao nome
@@ -254,6 +268,7 @@ public class Facade {
 			throw new Exception("Erro na consulta de medicamentos. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Sai do sistema
 	 * @throws Exception
@@ -265,6 +280,7 @@ public class Facade {
 			throw new Exception("Nao foi possivel realizar o logout. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Exclui funcionario
 	 * @param matricula associa a matricula
@@ -278,6 +294,7 @@ public class Facade {
 			throw new Exception("Erro ao excluir funcionario. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Fecha o sistema
 	 * @throws Exception
@@ -293,6 +310,7 @@ public class Facade {
 			throw new Exception("Nao foi possivel fechar o sistema. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Recupera todos os medicamentos da farmacia
 	 * @param ordenacao qual tipo de ordenacao o usuario deseja
@@ -417,6 +435,7 @@ public class Facade {
 			throw new Exception(e.getMessage());
 		}
 	}
+	
 	/**
 	 * Realiza um determinado procedimento em um paciente
 	 * @param Procedimento a ser Realizado
@@ -431,6 +450,7 @@ public class Facade {
 			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Realiza um procedimento de transplante de orgaos em determinado paciente
 	 * @param Procedimento a ser Realizado
@@ -486,6 +506,7 @@ public class Facade {
 			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Retorna o numero total de pontos fidelidade
 	 * @return 
@@ -498,6 +519,7 @@ public class Facade {
 			throw new Exception("Erro na realizacao de procedimentos. " + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Registra as informacoes do paciente em um arquivo
 	 * @param id do paciente em questao
@@ -510,4 +532,5 @@ public class Facade {
 			throw new Exception(e.getMessage());
 		}
 	}
+	
 }

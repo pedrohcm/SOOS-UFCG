@@ -20,7 +20,7 @@ public class Paciente implements Comparable<Paciente> , Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Prontuario prontuario;
+	private Prontuario prontuario;
 	private double valorGasto;
 	private CartaoFidelidade cartao;
 	private final int CONSULTACLINICA = 50;

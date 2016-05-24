@@ -6,9 +6,7 @@ import java.util.HashSet;
 import Exceptions.FuncionarioException;
 
 public class Diretor extends Funcionario {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Construtor de diretor
@@ -26,7 +24,7 @@ public class Diretor extends Funcionario {
 	/**
 	 * Na especificacao do problema o diretor tem todas as permissoes possiveis
 	 * */
-	protected void definirPermissoes(){
+	public void definirPermissoes(){
 		HashSet<Permissoes> permissoesConcedidas = this.getPermissoes();
 		permissoesConcedidas.add(Permissoes.ATUALIZADADOS);
 		permissoesConcedidas.add(Permissoes.CADASTRAFUNCIONARIO);

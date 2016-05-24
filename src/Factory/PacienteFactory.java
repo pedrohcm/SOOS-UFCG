@@ -8,13 +8,11 @@ import Exceptions.DataInvalidaException;
 import Exceptions.PacienteException;
 
 public class PacienteFactory implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int ID;
 	/**
-	 * Construtor
+	 * Construtor da classe, que atribui o id
 	 */
 	public PacienteFactory(){
 		ID = 1;

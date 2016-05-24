@@ -23,10 +23,7 @@ import Exceptions.ProcedimentoException;
 
 
 
-public class Controller implements Serializable{
-	/**
-	 * 
-	 */
+public class Controller implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private boolean sistemaLiberado;
 	private Funcionario usuarioLogado;
@@ -37,9 +34,7 @@ public class Controller implements Serializable{
 	private BancoOrgaos bancoOrgaos;
 	
 	/**
-	 * Construtor
-	 * 
-	 *
+	 * Construtor da classe, atribuindo os valores necessarios aos atributos e instanciando os bancos
 	 */
 	public Controller(){
 		sistemaLiberado = false;

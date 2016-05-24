@@ -9,13 +9,17 @@ import Paciente.Paciente;
  * Classe responsavel pelas caracteristicas do procedimento de redesignacao sexual
  * */
 public class RedesignacaoSexual implements Iprocedimentos,Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private final double PRECO = 9300;
 	private String medico;
 	private LocalDate data;
+	
+	/**
+	 * Construtor da classe
+	 * @param nome nome do medico
+	 * @param data data do procedimento
+	 */
 	public RedesignacaoSexual(String nome,LocalDate data){
 		this.medico = nome;
 		this.data = data;
@@ -36,6 +40,10 @@ public class RedesignacaoSexual implements Iprocedimentos,Serializable{
 		}
 		return PRECO;
 	}
+	
+	/**
+	 * Retorna uma string com as informacoes do procedimento
+	 */
 	@Override
 	public String toString() {
 		String texto = "-->Redesignacao Sexual: " + System.getProperty("line.separator");

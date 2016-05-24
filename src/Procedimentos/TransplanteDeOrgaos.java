@@ -17,6 +17,12 @@ public class TransplanteDeOrgaos implements Iprocedimentos,Serializable{
 	private String medico;
 	private LocalDate data;
 	private String orgao;
+	
+	/**
+	 * Construtor da classe
+	 * @param nome nome do medico
+	 * @param data data do procedimento
+	 */
 	public TransplanteDeOrgaos(String nome,LocalDate data,String orgao){
 		this.medico = nome;
 		this.data = data;
@@ -32,6 +38,10 @@ public class TransplanteDeOrgaos implements Iprocedimentos,Serializable{
 	public double realizarProcedimento(Paciente paciente) throws ProcedimentoException {
 		return PRECO;
 	}
+	
+	/**
+	 * Retorna uma string com as informacoes do procedimento
+	 */
 	@Override
 	public String toString() {
 		String texto = "-->Transplante de Orgaos: " + System.getProperty("line.separator");

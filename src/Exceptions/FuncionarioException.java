@@ -1,6 +1,6 @@
 package Exceptions;
 
-public class FuncionarioException extends FactoryException{
+public class FuncionarioException extends ControllerException{
 	/**
 	 * 
 	 */

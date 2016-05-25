@@ -225,7 +225,7 @@ public class Paciente implements Comparable<Paciente> , Serializable{
 		prontuario.adicionarProcedimentoALista(procedimento);
 	}
 	/**
-	 * Registra as informa�oes em um arquivo .txt
+	 * Registra as informacoes em um arquivo .txt
 	 * */
 	public void registrarInformacoesEmArquivo(){
 		String path = "fichas_pacientes/" + AcessarInformacoes("nome") + "_"+ LocalDate.now().getYear() + "_" +

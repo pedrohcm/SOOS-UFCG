@@ -1,6 +1,6 @@
 package Exceptions;
 
-public class BancoOrgaosException extends Exception {
+public class BancoOrgaosException extends ControllerException {
 
 	private static final long serialVersionUID = 1L;
 

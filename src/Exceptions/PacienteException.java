@@ -1,6 +1,6 @@
 package Exceptions;
 
-public class PacienteException extends FactoryException {
+public class PacienteException extends ControllerException {
 
 	/**
 	 * 

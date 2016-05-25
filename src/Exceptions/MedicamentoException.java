@@ -1,6 +1,6 @@
 package Exceptions;
 
-public class MedicamentoException extends Exception {
+public class MedicamentoException extends ControllerException {
 	
 	private static final long serialVersionUID = 1L;
 	
